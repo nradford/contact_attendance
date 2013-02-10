@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost:8888';
+$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['password'] = 'root';
 $db['default']['database'] = 'contact_attendance';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
