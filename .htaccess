@@ -27,9 +27,9 @@
     # RewriteCond %{REQUEST_FILENAME} !-d
     # RewriteRule ^(.+)/$ $1 [L,R=301]
 
-    # Enforce NO www
+    # # Enforce NO www
     # RewriteCond %{HTTP_HOST} ^www [NC]
-    # RewriteRule ^(.*)$ http://domain.tld/$1 [L,R=301]
+    # RewriteRule ^(.*)$ http://google.com/$1 [L,R=301]
 
 
     # If we don't have mod_rewrite installed, all 404's
