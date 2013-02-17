@@ -13,6 +13,10 @@
     <link href="<?php print base_url();?>css/bootstrap.min.css" rel="stylesheet" />
 
 	<script src="<?print base_url();?>js/modernizr.custom.2.6.2.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script>window.jQuery || document.write('<script src="<?php print base_url()."js/jquery-1.9.1.min.js";?>"><\/script>')</script>
+    <script src="<?php print base_url();?>js/bootstrap.min.js"></script>
 </head>
 <body>
 
