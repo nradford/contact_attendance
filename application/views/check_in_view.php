@@ -6,13 +6,13 @@
 			
     <div class="span6" id="check-in-date"><?print date("D, F j Y", strtotime(date("Ymd")));?></div>
 			
-			<table id="check-in" class="table table-striped table-bordered table-condensed">
+			<table id="check-in" class="table table-striped table-bordered table-condensed footable">
 				<thead>
 				<tr>
-					<th class="check-in-name">Name</th>
+					<th class="check-in-name" data-class="expand">Name</th>
 					<th class="check-in-time">Check In Time</th>
-					<th>Notes</th>
-					<th class="check-in-delete"></th>
+					<th data-hide="phone">Notes</th>
+					<th class="check-in-delete" data-hide="phone,tablet"></th>
 				</tr>
 				</thead>
 
@@ -28,7 +28,7 @@
 									<input type="hidden" name="contact_id_<?print $cnt;?>" value="<?print $check_in['contact_id'];?>" id="contact_id_<?print $check_in['contact_id'];?>" />
 								</td>
 								
-								<td><input type="button" name="add_note" value="Add Note" id="add_note_<?print $check_in['id'];?>" /><textarea class="check-in-notes" name="note_<?print $check_in['id'];?>"></textarea></td>
+								<td><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a><textarea class="check-in-notes" name="note_<?print $check_in['id'];?>"></textarea></td>
 								
 								<td>
 									<a href='#' class='del-line-item' id='<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
@@ -48,6 +48,8 @@
 <script>
 	$(document).ready(function(){
         $('#contacts-search').focus();
+        
+        $('.footable').footable();
 
 		//prevent the form from submiting when enter/return is pressed when search box is focused
 		$('#check_in_form').submit(function(e){e.preventDefault();});
@@ -101,10 +103,10 @@
                              if(parseFloat(returned_data[0].substr(0,1)) > 0){
                                  var altrow="altrow";
                                  var line_item="<tr class='"+altrow+"' id='contact_"+returned_data[0]+"'><td>"+unescape(returned_data[1].replace(/\+/g, " "))+"</td><td>"+unescape(returned_data[2].replace(/\+/g, " "))+"</td>";
-                                 line_item+="<td><input type='button' name='add_note' value='Add Note' id='add_note_'+returned_data[0] /><textarea class='check-in-notes' name='note_'+returned_data[0]></textarea></td>";
+                                 line_item+="<td><a href='#' class='btn btn-mini' id='add-note-'"+returned_data[0]+">Add Note</a><textarea class='check-in-notes' name='note_'+returned_data[0]></textarea></td>";
                                  line_item+="<td><a href='#' class='del-line-item' id='"+returned_data[0]+"'><i class='icon-trash''></i></a></td></tr>";
 					
-                                 $('#check-in tbody').prepend(line_item).hide().fadeIn(500);
+                                 $('#check-in tbody').prepend(line_item).hide().fadeIn(300);
                                  $('#contacts-search').val('');
                                  // $.jGrowl("Check In Saved");
                              }

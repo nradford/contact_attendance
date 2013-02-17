@@ -11,12 +11,14 @@
     <!-- Le styles -->
     <link href="<?php print base_url();?>css/styles.css" rel="stylesheet" />
     <link href="<?php print base_url();?>css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php print base_url();?>css/footable-0.1.css">
 
 	<script src="<?print base_url();?>js/modernizr.custom.2.6.2.js"></script>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script>window.jQuery || document.write('<script src="<?php print base_url()."js/jquery-1.9.1.min.js";?>"><\/script>')</script>
     <script src="<?php print base_url();?>js/bootstrap.min.js"></script>
+    <script src="<?php print base_url();?>js/footable-0.1.js"></script>
 </head>
 <body>
 
@@ -28,8 +30,12 @@
             </button>
             <a class="brand" href="#">Check-In/Out</a>
             <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                    Logged in as <a href="#" class="navbar-link">Username</a>
+                <p class="navbar-text pull-right"><?php
+                    if($this->session->userdata('account_id') > 0){?>
+                        <a href="<?php print base_url();?>login/logout" class="navbar-link">Log Out</a><?php
+                    }else{?>
+                        <?php
+                    }?>
                 </p>
                 <ul class="nav">
                     <li class="active"><a href="#">Home</a></li>
