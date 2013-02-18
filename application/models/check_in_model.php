@@ -23,17 +23,32 @@ class check_in_model extends CI_Model{
     }
 
     function check_in_save(){
-    	$date=date("Ymd");
-    	$time=time();
-    	$contact_id=$_GET['contact_id'];
-	
-    	$sql="INSERT INTO check_in (contact_id, check_date, checked_in) VALUES ($contact_id, $date, $time);";
-    	$this->db->query($sql);
-    	$check_in_id = $this->db->insert_id();
-    	if($check_in_id > 0){
-    		print $check_in_id."|".urlencode($_GET['name'])."|".urlencode(date("g:i a", $time));
-    	}else{
-    		print "There was an error saving the check in info";
-    	}
+        $date=date("Ymd");
+        $time=time();
+        $contact_id=$_GET['contact_id'];
+    
+        $sql="INSERT INTO check_in (contact_id, check_date, checked_in) VALUES ($contact_id, $date, $time);";
+        $this->db->query($sql);
+        $check_in_id = $this->db->insert_id();
+        if($check_in_id > 0){
+            print $check_in_id."|".urlencode($_GET['name'])."|".urlencode(date("g:i a", $time));
+        }else{
+            print "There was an error saving the check in info";
+        }
+    }
+
+    function check_in_delete(){
+        $date = date("Ymd");
+        $time = time();
+        $check_in_id = $this->input->get('check_in_id');
+
+        $sql = "DELETE FROM check_in WHERE id=".$check_in_id;
+        $this->db->query($sql);
+
+        if($this->db->_error_message() == ""){
+            print $check_in_id;
+        }else{
+            print $this->db->_error_message();
+        }
     }
 }

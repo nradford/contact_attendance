@@ -1,10 +1,13 @@
 <form action="save_check_in.php" id="check_in_form" method="post" accept-charset="utf-8">
 	<!-- <input type="hidden" name="contact_id" value="" id="contact_id" /> -->
-	<div class="span6">
-		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
-	</div>
+    
+    <div class="row-fluid">
+    	<div class="span4">
+    		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
+    	</div>
 			
-    <div class="span6" id="check-in-date"><?print date("D, F j Y", strtotime(date("Ymd")));?></div>
+        <div class="span8" id="check-in-date"><?print date("D, F j Y", strtotime(date("Ymd")));?></div>
+    </div><!-- row-fluid -->
 			
 			<table id="check-in" class="table table-striped table-bordered table-condensed footable">
 				<thead>
@@ -21,17 +24,18 @@
 						$cnt++;
 						foreach($check_ins as $check_in){
 							if($check_in['checked_in'] != "")$check_in_time=date("g:i a", $check_in['checked_in']);?>
-							<tr id='contact_<?print $check_in['id'];?>'>
+							<tr id='check-in-<?print $check_in['id'];?>'>
 								<td><?print $check_in['fname']." ".$check_in['lname'];?></td>
 								<td>
 									<?print $check_in_time;?>
-									<input type="hidden" name="contact_id_<?print $cnt;?>" value="<?print $check_in['contact_id'];?>" id="contact_id_<?print $check_in['contact_id'];?>" />
+									<input type="hidden" name="check_in_id_<?print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
 								</td>
 								
-								<td><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a><textarea class="check-in-notes" name="note_<?print $check_in['id'];?>"></textarea></td>
+                                <!-- <td><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a><textarea class="check-in-notes" name="note_<?print $check_in['id'];?>"></textarea></td> -->
+								<td contenteditable><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a></td>
 								
 								<td>
-									<a href='#' class='del-line-item' id='<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
+									<a href='#' class='del-line-item' data-id='<?print $check_in['id'];?>' id='check-in-delete-<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
 								</td>
 							</tr><?
 						}
@@ -104,7 +108,7 @@
                                  var altrow="altrow";
                                  var line_item="<tr class='"+altrow+"' id='contact_"+returned_data[0]+"'><td>"+unescape(returned_data[1].replace(/\+/g, " "))+"</td><td>"+unescape(returned_data[2].replace(/\+/g, " "))+"</td>";
                                  line_item+="<td><a href='#' class='btn btn-mini' id='add-note-'"+returned_data[0]+">Add Note</a><textarea class='check-in-notes' name='note_'+returned_data[0]></textarea></td>";
-                                 line_item+="<td><a href='#' class='del-line-item' id='"+returned_data[0]+"'><i class='icon-trash''></i></a></td></tr>";
+                                 line_item+="<td><a href='#' class='del-line-item' data-id='"+returned_data[0]+"' id='check-in-delete-"+returned_data[0]+"'><i class='icon-trash''></i></a></td></tr>";
 					
                                  $('#check-in tbody').prepend(line_item).hide().fadeIn(300);
                                  $('#contacts-search').val('');
@@ -121,27 +125,28 @@
 		$('.del-line-item').on('click', function(){
 			// alert($(this).attr('id'));
 			var confirm_delete=confirm("Are you sure you want to delete this record?");
-			if(!confirm_delete)return false;
-
-			$.ajax({
-			  url: 'del_line_item.php',
-			  type: 'get',
-			  dataType: 'html',
-			  data: 'contact_id='+$(this).attr('id'),
-		  	success: function(id){
-					if(id > 0){
-						$('#contact_'+id).fadeOut(300);
-						$('#search_contacts').focus();
-					}else{
-						alert('There was an error deleting the record.\nPlease try again later.')
-					}
-		 		},
-				
-		  	error: function(){
-					alert('There was an error deleting the record.\nPlease try again later.')
-		  	}
-			});
-		});
+			if(!confirm_delete){
+                return false;
+            }else{
+                $.ajax({
+                    url: '<?php print base_url();?>check_in/check_in_delete',
+                    type: 'get',
+                    dataType: 'html',
+                    data: 'check_in_id='+$(this).attr('data-id'),
+                    success: function(id){
+                    	if(id > 0){
+                    		$('#check-in-'+id).fadeOut(300);
+                    		$('#contacts-search').focus();
+                    	}else{
+                    		alert('There was an error deleting the record.\nPlease try again later.')
+                    	}
+                    },				
+                    error: function(){
+                    	alert('There was an error deleting the record.\nPlease try again later.')
+                    }
+                });
+            }
+        });
 
 
 			

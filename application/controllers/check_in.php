@@ -25,6 +25,13 @@ class check_in extends CI_Controller{
         
         print $results;
     }
+    
+    function check_in_delete(){
+        $this->load->model('check_in_model');
+        $id = $this->check_in_model->check_in_delete();
+        
+        print $id;
+    }
 }
 
 /* End of file check_in.php */
