@@ -40,7 +40,7 @@
                 <ul class="nav">
                     <li<?php if($this->uri->segment(1) == "check_in")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
                     <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li>
-                    <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>"contacts>Kids</a></li>
+                    <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
                 </ul>
             </div><!-- .nav-collapse -->
         </div>
