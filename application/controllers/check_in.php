@@ -16,7 +16,6 @@ class check_in extends CI_Controller{
         $this->load->model('check_in_model');
         $results = $this->check_in_model->contacts_search();
         print '{"'.$this->input->get("callback").'": '.json_encode($results).'}';
-        // print '{"options": ["PHP", "MySQL", "SQL", "PostgreSQL", "HTML", "CSS", "HTML5", "CSS3", "JSON"]}';
     }
 
     function check_in_save(){

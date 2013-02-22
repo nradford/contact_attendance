@@ -2,11 +2,11 @@
 	<!-- <input type="hidden" name="contact_id" value="" id="contact_id" /> -->
     
     <div class="row-fluid">
-    	<div class="span4">
+    	<div class="pull-left">
     		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
     	</div>
 			
-        <div class="span8" id="check-in-date"><?print date("D, F j Y", strtotime(date("Ymd")));?></div>
+        <div class="pull-right" id="check-in-date"><?print date("D, F j Y", strtotime(date("Ymd")));?></div>
     </div><!-- row-fluid -->
 			
 			<table id="check-in" class="table table-striped table-bordered table-condensed footable">
@@ -32,7 +32,7 @@
 								</td>
 								
                                 <!-- <td><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a><textarea class="check-in-notes" name="note_<?print $check_in['id'];?>"></textarea></td> -->
-								<td contenteditable><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a></td>
+								<td><a href="#" class='btn btn-mini'  id="add-note-<?print $check_in['id'];?>" >Add Note</a></td>
 								
 								<td>
 									<a href='#' class='del-line-item' data-id='<?print $check_in['id'];?>' id='check-in-delete-<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
