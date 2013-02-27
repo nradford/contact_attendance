@@ -49,4 +49,17 @@ class contacts_model extends CI_Model{
         }
         return $contact_id;
     }
+
+    function note_save(){
+        $id = $this->input->post('pk');
+        $note = $this->input->post('value');
+        
+        $this->db->query('UPDATE contacts SET notes="'.$note.'" WHERE id='.$id);
+
+        if($this->db->_error_message != ""){
+            return $this->db->_error_message;
+        }else{
+            return $id;
+        }
+    }
 }

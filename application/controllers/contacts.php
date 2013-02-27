@@ -31,11 +31,17 @@ class contacts extends CI_Controller{
     function contact_save(){
         $this->load->model('contacts_model');
         $contact_id = $this->contacts_model->contact_save();
-        print $contact_id."***";
         if($contact_id > 0){
             redirect(base_url()."contacts");
         }else{
-            // redirect(base_url()."contacts/contact_edit");
+            redirect(base_url()."contacts/contact_edit");
         }
+    }
+    
+    function note_save(){
+        $this->load->model('contacts_model');
+        $contact_id = $this->contacts_model->note_save();
+        
+        print $contact_id;
     }
 }

@@ -7,6 +7,8 @@ class check_in extends CI_Controller{
 
         $this->load->model('check_in_model');
         $data['check_ins'] = $this->check_in_model->check_ins_get();
+        
+        $data['classes'] = $this->check_in_model->classes_get();
 
 		$data['main_content'] = 'check_in_view';
 		$this->load->view('template_view', $data);
@@ -31,7 +33,22 @@ class check_in extends CI_Controller{
         
         print $id;
     }
-}
 
+    function classes_get(){
+        $this->load->model('check_in_model');
+        $classes = $this->check_in_model->classes_get();
+        
+        // print "************<pre>";
+        // print_r($classes);
+        // print "</pre>************";
+    }
+
+    function class_update(){
+        $this->load->model('check_in_model');
+        $update = $this->check_in_model->class_update();
+
+        print $update;
+    }
+}
 /* End of file check_in.php */
 /* Location: ./application/controllers/check_in.php */

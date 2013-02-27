@@ -8,10 +8,10 @@
 	<title>Kidz Rock Check-In/Check-Out</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <!-- Le styles -->
-    <link href="<?php print base_url();?>css/styles.css" rel="stylesheet" />
-    <link href="<?php print base_url();?>css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php print base_url();?>css/styles.css" />
+    <link rel="stylesheet" href="<?php print base_url();?>css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php print base_url();?>css/footable-0.1.css">
+    <link rel="stylesheet" href="<?php print base_url();?>css/bootstrap-editable.css">
 
 	<script src="<?print base_url();?>js/modernizr.custom.2.6.2.js"></script>
     
@@ -20,6 +20,7 @@
     <script src="<?php print base_url();?>js/bootstrap.min.js"></script>
     <script src="<?php print base_url();?>js/footable-0.1.js"></script>
     <script src="<?php print base_url();?>js/jquery.ziptastic.js"></script>
+    <script src="<?php print base_url();?>js/bootstrap-editable.min.js"></script>
 </head>
 <body>
 
