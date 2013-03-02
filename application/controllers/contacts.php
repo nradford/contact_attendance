@@ -1,10 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class contacts extends CI_Controller{
-	public function index(){
-        /*
-            TODO check to see if user is logged in
-        */
+	public function __construct(){
+        parent::__construct();
+        //user must be logged in to access any methods of this class
+        validate_user($this->session->userdata);
+	}
 
+	public function index(){
         $this->load->model('contacts_model');
         $data['contacts'] = $this->contacts_model->contacts_get();
 

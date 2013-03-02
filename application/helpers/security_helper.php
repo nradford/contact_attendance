@@ -4,7 +4,7 @@ if(!function_exists('validate_user')){
         $ci =& get_instance();
 
         if(! isset($userdata['account_id'])){
-            redirect('/login');
+            redirect(base_url());
         }
     }
 }

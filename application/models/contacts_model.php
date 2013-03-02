@@ -1,5 +1,10 @@
 <?php
 class contacts_model extends CI_Model{
+	public function __construct(){
+        //user must be logged in to access any methods of this class
+        validate_user($this->session->userdata);
+	}
+
 	function contacts_get(){
         $sql = "SELECT * FROM contacts ORDER BY lname ASC, fname ASC";
 		$query = $this->db->query($sql);

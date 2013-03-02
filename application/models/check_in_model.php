@@ -1,5 +1,10 @@
 <?php
 class check_in_model extends CI_Model{
+	function __construct(){
+        //user must be logged in to access any methods of this class
+        validate_user($this->session->userdata);
+	}
+
 	function check_ins_get(){
         $today = date("Ymd");
         $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, classes.id AS class_id FROM contacts c ";
