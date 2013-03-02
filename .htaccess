@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /contact_attendance/
+    RewriteBase /
 
     #Removes access to the system folder by users.
     #Additionally this will allow you to create a System.php controller,
@@ -29,7 +29,7 @@
 
     # # Enforce NO www
     # RewriteCond %{HTTP_HOST} ^www [NC]
-    # RewriteRule ^(.*)$ http://google.com/$1 [L,R=301]
+    # RewriteRule ^(.*)$ http://dev-ca.com/$1 [L,R=301]
 
 
     # If we don't have mod_rewrite installed, all 404's

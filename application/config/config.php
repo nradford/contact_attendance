@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://dev.com/contact_attendance/';
+$config['base_url']	= 'http://dev-ca.com/';
 
 /*
 |--------------------------------------------------------------------------
