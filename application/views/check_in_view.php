@@ -1,67 +1,63 @@
-<form action="save_check_in.php" id="check_in_form" method="post" accept-charset="utf-8">
-	<!-- <input type="hidden" name="contact_id" value="" id="contact_id" /> -->
-    
+<form action="<?php print base_url();?>check_in" id="check-in-form" method="post">
     <div class="row-fluid">
     	<div class="pull-left">
     		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
     	</div>
 			
-        <div class="pull-right" id="check-in-date"><?php
-        $check_date = date('Y-m-d');
-        ?>
+        <div class="pull-right" id="check-in-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
-            <a href="#" id="check-in-date-link" data-type="date" data-pk="1" data-url="" data-original-title="Select date"><?php print date("D, F j Y", strtotime($check_date));?></a>
+            <!-- <a href="#" id="check-in-date-link" data-type="date" data-pk="1" data-url="" data-original-title="Select date"><?php print date("D, F j Y", strtotime($check_date));?></a> -->
+            <a href="#" id="check-in-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
+            
         </div>
     </div><!-- row-fluid -->
 
-			<table id="check-in" class="table table-striped table-bordered table-condensed footable">
-				<thead>
-				<tr>
-					<th class="check-in-name" data-class="expand">Name</th>
-					<th class="check-in-time">Check In Time</th>
-                    <th class="check-in-class" data-hide="phone">Class</th>
-					<th data-hide="phone" data-hide="phone">Notes</th>
-					<th class="check-in-delete"></th>
-				</tr>
-				</thead>
+    <div class="row-fluid">
+		<table id="check-in" class="table table-striped table-bordered table-condensed footable">
+			<thead>
+			<tr>
+				<th class="check-in-name" data-class="expand">Name</th>
+				<th class="check-in-time">Check In Time</th>
+                <th class="check-in-class" data-hide="phone">Class</th>
+				<th data-hide="phone" data-hide="phone">Notes</th>
+				<th class="check-in-delete"></th>
+			</tr>
+			</thead>
 
-				<tbody><?php
-					if(sizeof($check_ins) > 0){
-						$cnt++;
-						foreach($check_ins as $check_in){
-							if($check_in['checked_in'] != "")$check_in_time=date("g:i a", $check_in['checked_in']);?>
-							<tr id='check-in-<?print $check_in['id'];?>'>
-								<td><?print $check_in['fname']." ".$check_in['lname'];?></td>
-								<td>
-									<?print $check_in_time;?>
-									<input type="hidden" name="check_in_id_<?print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
-								</td>
+			<tbody><?php
+				if(sizeof($check_ins) > 0){
+					$cnt++;
+					foreach($check_ins as $check_in){
+						if($check_in['checked_in'] != "")$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
+						<tr id='check-in-<?print $check_in['id'];?>'>
+							<td><?print $check_in['fname']." ".$check_in['lname'];?></td>
+							<td>
+								<?print $check_in_time;?>
+								<input type="hidden" name="check_in_id_<?print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
+							</td>
                                 
-                                <td>
-                                    <a href="#" id="check-in-class-link-<?php print $check_in['id'];?>" class="check-in-class-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['class_id'];?>"></a>
-                                </td>
+                            <td>
+                                <a href="#" id="check-in-class-link-<?php print $check_in['id'];?>" class="check-in-class-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['class_id'];?>"></a>
+                            </td>
 								
-								<td>
-                                    <a href="#" id="contact-note-<?php print $check_in['id'];?>" data-type="textarea" data-pk="<?php print $check_in['contact_id'];?>" class="contact-note"><?php print nl2br($check_in['notes']);?></a>
-                                </td>
+							<td>
+                                <a href="#" id="contact-note-<?php print $check_in['id'];?>" data-type="textarea" data-pk="<?php print $check_in['contact_id'];?>" class="contact-note"><?php print nl2br($check_in['notes']);?></a>
+                            </td>
 								
-								<td>
-									<a href='#' class='del-line-item' data-id='<?print $check_in['id'];?>' id='check-in-delete-<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
-								</td>
-							</tr><?
-						}
-						$cnt++;
-					}?>
-				</tbody>
-			</table>
+							<td>
+								<a href='#' class='del-line-item' data-id='<?print $check_in['id'];?>' id='check-in-delete-<?print $check_in['id'];?>'><i class="icon-trash"></i></a>
+							</td>
+						</tr><?
+					}
+					$cnt++;
+				}?>
+			</tbody>
+		</table>
 
-            <!-- <a href="#" id="pencil"><i class="icon-pencil"></i> [edit]</a>
-            <div id="class-report" data-pk="1" data-type="wysihtml5" data-toggle="manual" data-original-title="Enter notes" class="editable" tabindex="-1" style="display: block;"></div> -->
-			
-			<div class="row">
-				<!-- <input type="submit" class="button" id="save-check-in" value="Save" /> -->
-			</div>
-		</form>
+        <!-- <a href="#" id="pencil"><i class="icon-pencil"></i> [edit]</a>
+        <div id="class-report" data-pk="1" data-type="wysihtml5" data-toggle="manual" data-original-title="Enter notes" class="editable" tabindex="-1" style="display: block;"></div> -->
+    </div><!-- row-fluid -->
+</form>
 
 <script>
 	$(document).ready(function(){
@@ -70,14 +66,25 @@
         // $.fn.editable.defaults.mode = 'popover';
         $.fn.editable.defaults.placement = 'bottom';
 
-        $('#check-in-date-link').editable({
-            placement: 'left',
-            format: 'yyyy-mm-dd',
-            viewformat: 'dd/mm/yyyy',
-            datepicker:{weekStart: 1},
-            showbuttons: false
+        $(document).ajaxSuccess(function(event, xhr, settings){
+            //if the ajax success is from the date change
+            if(settings.url == "<?php print base_url();?>check_in/date_change"){
+                //update the check-in date hidden input and post the form back to itself to load the check-in page for the new date
+                $('#check-date').val(xhr.responseText);
+                $('#check-in-form').submit();
+            }
         });
-        
+
+        $('#check-in-date-link').editable({
+            mode: 'inline',
+            url: '<?php print base_url();?>check_in/date_change',
+            send: 'always',
+            combodate: {
+                minYear: '<?php print date("Y") - 5;?>',
+                maxYear: '<?php print date("Y") + 1;?>'
+            }
+        });
+
         init_x_editable();//initialize the dynamic x-editable fields
 
         $('.footable').footable();
@@ -94,7 +101,7 @@
 */     
 
 		//prevent the form from submiting when enter/return is pressed when search box is focused
-		$('#check_in_form').submit(function(e){e.preventDefault();});
+        // $('#check-in-form').submit(function(e){e.preventDefault();});
 
         $('#contacts-search').typeahead({
             minLength: 2,
@@ -129,7 +136,7 @@
                          url: '<?php print base_url();?>check_in/check_in_save',
                          type: 'get',
                          dataType: 'jsonp',
-                         data: "contact_id="+contact_id+"&name="+item,
+                         data: "contact_id="+contact_id+"&name="+item+'&check_date=<?php print $check_date;?>',
                          complete: function(){},
                          success: function(check_in_data){
                              var check_in_id = check_in_data.check_in_id;
@@ -185,7 +192,7 @@
 
 
 			
-		<?if($_GET['notification']){?>$.jGrowl('<?print $_GET['notification'];?>');<?}?>
+        // <?if($_GET['notification']){?>$.jGrowl('<?print $_GET['notification'];?>');<?}?>
 
 	});//end document.ready
     

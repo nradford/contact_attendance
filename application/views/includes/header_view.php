@@ -17,10 +17,11 @@
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script>window.jQuery || document.write('<script src="<?php print base_url()."js/jquery-1.9.1.min.js";?>"><\/script>')</script>
+    <script src="<?php print base_url();?>js/moment.min.js"></script>
     <script src="<?php print base_url();?>js/bootstrap.min.js"></script>
-    <script src="<?php print base_url();?>js/footable-0.1.js"></script>
-    <script src="<?php print base_url();?>js/jquery.ziptastic.js"></script>
     <script src="<?php print base_url();?>js/bootstrap-editable.min.js"></script>
+    <script src="<?php print base_url();?>js/footable-0.1.js"></script>
+    <script src="<?php print base_url();?>js/jquery.ziptastic.js"></script>    
 </head>
 <body>
 

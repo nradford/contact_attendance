@@ -5,12 +5,11 @@ class check_in_model extends CI_Model{
         validate_user($this->session->userdata);
 	}
 
-	function check_ins_get(){
-        $today = date("Ymd");
+	function check_ins_get($date){
         $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, classes.id AS class_id FROM contacts c ";
         $sql .= "LEFT JOIN check_in ON c.id=check_in.contact_id ";
         $sql .= "LEFT JOIN classes ON check_in.class_id=classes.id ";
-        $sql .= "WHERE check_date=$today ORDER BY checked_in DESC";
+        $sql .= "WHERE check_date='".$date."' ORDER BY checked_in DESC";
 		$query = $this->db->query($sql);
 
 		if($query->num_rows() > 0)$data = $query->result_array();
@@ -46,7 +45,7 @@ class check_in_model extends CI_Model{
     }
 
     function check_in_save(){
-        $date = date("Y-m-d");
+        $check_date = $this->input->get('check_date');
         $checked_in_time = date("Y-m-d H:i:s");
         $contact_id = $this->input->get('contact_id');
 
@@ -60,13 +59,13 @@ class check_in_model extends CI_Model{
 
         $class_id = $check_in_data['class_id'];
 
-        $sql2 = "INSERT INTO check_in (contact_id, check_date, checked_in, class_id) VALUES ($contact_id, '$date', '$checked_in_time', '$class_id');";
+        $sql2 = "INSERT INTO check_in (contact_id, check_date, checked_in, class_id) VALUES ($contact_id, '$check_date', '$checked_in_time', '$class_id');";
         $this->db->query($sql2);
         $check_in_id = $this->db->insert_id();
         if($check_in_id > 0){
             $return_data = array(
                 'check_in_id' => $check_in_id,
-                'name' => urldecode($_GET['name']),
+                'name' => urldecode($this->input->get('name')),
                 'check_in_time' => date("g:i a", strtotime($checked_in_time)),
                 'notes' => $check_in_data['notes'],
                 'class_id' => $class_id

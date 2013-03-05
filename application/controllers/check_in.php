@@ -7,14 +7,24 @@ class check_in extends CI_Controller{
 	}
 
 	public function index(){
+        $data['check_date'] = date('Y-m-d');
+        if($this->input->post('check_date') != "")$data['check_date'] = $this->input->post('check_date');
+
         $this->load->model('check_in_model');
-        $data['check_ins'] = $this->check_in_model->check_ins_get();
+        $data['check_ins'] = $this->check_in_model->check_ins_get($data['check_date']);
         
         $data['classes'] = $this->check_in_model->classes_get();
 
 		$data['main_content'] = 'check_in_view';
 		$this->load->view('template_view', $data);
 	}
+    
+    function date_change(){
+        /**
+         *XHR for changing the date in the check_in page
+        */
+        print $this->input->post('value');
+    }
 
     function contacts_search(){
         $this->load->model('check_in_model');
