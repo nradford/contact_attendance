@@ -6,7 +6,7 @@ class check_in_model extends CI_Model{
 	}
 
 	function check_ins_get($date){
-        $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, classes.id AS class_id FROM contacts c ";
+        $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, check_in.check_in_code, classes.id AS class_id, classes.name AS class_name FROM contacts c ";
         $sql .= "LEFT JOIN check_in ON c.id=check_in.contact_id ";
         $sql .= "LEFT JOIN classes ON check_in.class_id=classes.id ";
         $sql .= "WHERE check_date='".$date."' ORDER BY checked_in DESC";
@@ -27,13 +27,8 @@ class check_in_model extends CI_Model{
         if($this->input->get('limit') > 0)$limit = $this->input->get('limit');
         $check_date = $this->input->get('check_date');
 
-        /*
-            TODO need to prevent multiple checkins for the same contact
-        */
         if($term != ""){
             $sql = "SELECT id AS contact_id, fname, lname, notes ";
-            // $sql .= "DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birthdate, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birthdate, '00-%m-%d')) AS age, ";
-            // $sql .= "(SELECT `id` FROM `classes` WHERE age BETWEEN age_min AND age_max) AS class_id ";
             $sql .= "FROM contacts ";
             $sql .= "WHERE (fname like '%$term%' OR lname like '%$term%') ";
             $sql .= "AND id NOT IN (SELECT contacts.id FROM contacts LEFT JOIN check_in ON contacts.id=check_in.contact_id WHERE check_date='".$check_date."') ";
@@ -56,10 +51,12 @@ class check_in_model extends CI_Model{
         $sql .= "FROM contacts WHERE id=".$contact_id;
         $data = $this->db->query($sql);
         if($data->num_rows() > 0)$check_in_data = $data->row_array();
-
+        
+        $this->load->helper('check_in_code');
+        $check_in_code = check_in_code($check_date);
         $class_id = $check_in_data['class_id'];
 
-        $sql2 = "INSERT INTO check_in (contact_id, check_date, checked_in, class_id) VALUES ($contact_id, '$check_date', '$checked_in_time', '$class_id');";
+        $sql2 = "INSERT INTO check_in (contact_id, check_date, checked_in, class_id, check_in_code) VALUES ($contact_id, '$check_date', '$checked_in_time', '$class_id', '$check_in_code');";
         $this->db->query($sql2);
         $check_in_id = $this->db->insert_id();
         if($check_in_id > 0){
@@ -68,7 +65,8 @@ class check_in_model extends CI_Model{
                 'name' => urldecode($this->input->get('name')),
                 'check_in_time' => date("g:i a", strtotime($checked_in_time)),
                 'notes' => $check_in_data['notes'],
-                'class_id' => $class_id
+                'class_id' => $class_id,
+                'check_in_code' => $check_in_code
             );
 
             print $this->input->get('callback')."(".json_encode($return_data).")";
@@ -94,16 +92,7 @@ class check_in_model extends CI_Model{
             print $this->db->_error_message();
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     function classes_get(){
         $sql = "SELECT c.* FROM classes c ORDER BY age_min ASC";
 		$query = $this->db->query($sql);
