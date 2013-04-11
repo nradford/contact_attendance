@@ -13,33 +13,40 @@
     </div><!-- row-fluid -->
 
     <div class="row-fluid">
-		<table id="check-in" class="table table-striped table-bordered table-condensed footable">
+		<table id="check-in-table" class="table table-striped table-bordered table-condensed footable">
 			<thead>
 			<tr>
 				<th class="check-in-name" data-class="expand">Name</th>
-				<th class="check-in-time">Check In Time</th>
+				<th class="check-in-time">Checked In</th>
                 <th class="check-in-class" data-hide="phone">Class</th>
-				<th data-hide="phone" data-hide="phone">Notes</th>
+                <th class="check-in-code">Check In Code</th>
+				<th class="check-in-note" data-hide="phone">Notes</th>
 				<th class="check-in-delete"></th>
 			</tr>
 			</thead>
 
 			<tbody><?php
+                $cnt = 0;
 				if(sizeof($check_ins) > 0){
 					$cnt++;
 					foreach($check_ins as $check_in){
+                        $check_in_time = "";
 						if($check_in['checked_in'] != "")$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
 						<tr id='check-in-<?print $check_in['id'];?>'>
-							<td><?print $check_in['fname']." ".$check_in['lname'];?></td>
+							<td><?php print $check_in['fname']." ".$check_in['lname'];?></td>
 							<td>
 								<?print $check_in_time;?>
-								<input type="hidden" name="check_in_id_<?print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
+								<input type="hidden" name="check_in_id_<?php print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
 							</td>
                                 
                             <td>
                                 <a href="#" id="check-in-class-link-<?php print $check_in['id'];?>" class="check-in-class-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['class_id'];?>"></a>
                             </td>
-								
+
+                            <td>
+                                <?php print $check_in['check_in_code'];?>
+                            </td>
+
 							<td>
                                 <a href="#" id="contact-note-<?php print $check_in['id'];?>" data-type="textarea" data-pk="<?php print $check_in['contact_id'];?>" class="contact-note"><?php print nl2br($check_in['notes']);?></a>
                             </td>
@@ -87,7 +94,7 @@
 
         init_x_editable();//initialize the dynamic x-editable fields
 
-        $('.footable').footable();
+        $('#check-in-table').footable();
 
 /*        
         $('#class-report').editable({
@@ -141,18 +148,19 @@
                          success: function(check_in_data){
                              var check_in_id = check_in_data.check_in_id;
                              if(check_in_id > 0){
-                                 var line_item = "<tr id='contact-"+check_in_id+"'>";
+                                 var line_item = "<tr id='check-in-"+check_in_id+"'>";
                                  line_item += "<td>"+check_in_data.name+"</td>";
                                  line_item += "<td>"+check_in_data.check_in_time+"</td>";
                                  line_item += '<td><a id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+check_in_data.class_id+'"></a></td>';
+                                 line_item += "<td>"+check_in_data.check_in_code+"</td>";
                                  line_item += '<td><a href="#" id="contact-note-'+contact_id+'" data-type="textarea" data-pk="'+contact_id+'" class="contact-note">'+check_in_data.notes+'</a></td>';
                                  line_item += "<td><a href='#' class='del-line-item' data-id='"+check_in_id+"' id='check-in-delete-"+check_in_id+"'><i class='icon-trash''></i></a></td></tr>";
-                                 $('#check-in tbody').prepend(line_item).hide().fadeIn(300);
+                                 $('#check-in-table tbody').prepend(line_item).hide().fadeIn(300);
                                  $('#contacts-search').val('');
                                  
                                  init_x_editable();//re-initialize the x-editable fields after adding new content to the table
-
-                                 // $.jGrowl("Check In Saved");
+                                 //reinitialize footable (we have to remove footable-loaded class first to make footable think the table has not been initializes)
+                                 $('#check-in-table').removeClass('footable-loaded').footable();
                              }else{
                                  alert("There was an error processing your request.\nPlease try again later.");
                              }
@@ -164,7 +172,7 @@
              }
          });
 
-		$('.del-line-item').on('click', function(){
+		$('#check-in-table').on('click', '.del-line-item', function(){
 			// alert($(this).attr('id'));
 			var confirm_delete=confirm("Are you sure you want to delete this record?");
 			if(!confirm_delete){
@@ -223,8 +231,7 @@
             // }   
         });
         
-        
-        jQuery('.contact-note').editable({
+        jQuery('.contact-note').removeClass('editable editable-click').editable({
             url: '<?php print base_url();?>contacts/note_save'
         });
     }
