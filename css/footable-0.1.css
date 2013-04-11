@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.footable {
+/*.footable {
   border-spacing: 0;
   width: 100%;
   border: solid #ccc 1px;
@@ -12,7 +12,7 @@
   font-family: 'trebuchet MS' , 'Lucida sans' , Arial;
   font-size: 14px;
   color: #444;
-}
+}*/
 
 .footable.breakpoint > tbody > tr > td.expand {
   background: url('../img/plus.png') no-repeat 5px center;
@@ -43,7 +43,8 @@
 }
 
 .footable > thead > tr > th, .footable > thead > tr > td {
-/*  background-color: #dce9f9;
+/*
+  background-color: #000;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
   background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
   background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
@@ -56,8 +57,12 @@
   border-top: none;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
 */
+    background: #000;
+    color: #fff;
+    font-weight: normal;
 }
 
+/*
 .footable > thead > tr > th:first-child, .footable > thead > tr > td:first-child {
   -moz-border-radius: 6px 0 0 0;
   -webkit-border-radius: 6px 0 0 0;
@@ -90,4 +95,30 @@
 
 .footable > tbody img {
   vertical-align:middle;
+}
+*/
+
+/*FooTable Sortable Styles*/
+.footable > thead > tr > th > span.footable-sort-indicator {
+  width: 16px;
+  height: 16px;
+  display: block;
+  float:right;
+  background: url('../img/sorting_sprite.png') no-repeat top left;
+}
+
+.footable > thead > tr > th.footable-sortable:hover {
+  cursor:pointer;
+}
+
+.footable > thead > tr > th.footable-sortable > span {
+  
+}
+
+.footable > thead > tr > th.footable-sorted > span.footable-sort-indicator {
+  background-position: 0 -16px;
+}
+
+.footable > thead > tr > th.footable-sorted-desc > span.footable-sort-indicator {
+  background-position: 0 -32px;
 }
