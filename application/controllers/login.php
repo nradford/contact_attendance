@@ -39,9 +39,9 @@ class Login extends CI_Controller{
 			$this->session->set_userdata($data);
             redirect(base_url().'check_in');
 		}else{// incorrect email or password
+			$this->session->set_userdata('email', $this->input->post('email'));
 			$this->session->set_userdata('error', 'Incorrect email or password entered');
-
-			$this->index();
+            $this->index();
 		}
 	}
 
