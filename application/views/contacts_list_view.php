@@ -7,7 +7,7 @@
     	</div>
 
         <div class="pull-right">
-            <input type="button" id="add-contact" value="Add New Kid" class="btn btn-small btn-primary" />
+            <a href="<?php print base_url();?>contacts/contact_add" class="btn btn-small btn-primary">Add New Kid</a>
         </div>
         <!-- <div class="span8" id="check-in-date"><?php print date("D, F j Y", strtotime(date("Ymd")));?></div> -->
     </div><!-- row-fluid -->
@@ -84,9 +84,6 @@
             }
 		});
 
-		$('#contact-add').click(function(){
-			document.location.href="<?php print base_url();?>contacts/contact_add";
-		});
 
 		//prevent the form from submiting when enter/return is pressed when search box is focused
         // $('#check_in_form').submit(function(e){e.preventDefault();});
