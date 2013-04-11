@@ -1,1 +1,0 @@
-<a href="javascript:NewCal('date','mmddyyyy',false,12)"><img src="images/cal.gif" class="cal" alt="Pick a date" /></a>
