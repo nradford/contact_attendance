@@ -22,13 +22,6 @@
             if(strtotime($contact['birthdate'])){
                $bd = date("n/j/Y", strtotime($contact['birthdate']));
             }?>
-            
-            <!-- <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
-              <span class="add-on"><i class="icon-calendar"></i></span>
-              <input type="text" class="input-medium" readonly>
-            </div> -->
-            
-                <!-- <a href="#" id="birthdate-link" data-type="date" data-pk="1" data-url="/post" data-original-title="Select date"><?php print $bd;?></a> -->
                 
             <div class="input-append date" id="birthdate" data-date="<?php print $bd;?>">
                 <input class="span2" type="text" name="birthdate" value="<?php print $bd;?>">
