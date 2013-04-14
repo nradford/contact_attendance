@@ -28,7 +28,7 @@
     <script src="<?php print base_url();?>js/jquery.ziptastic.js"></script>    
     <!-- //-end- concat_js -->
     
-    <?php if($this->uri->segment(1) == "reports"){?>
+    <?php if($this->uri->segment(1) == "reports" || $this->uri->segment(1) == "contacts"){?>
         <script src="<?php print base_url();?>js/footable.sortable.js"></script><?php
     }?>
 </head>
