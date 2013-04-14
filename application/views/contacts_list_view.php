@@ -18,14 +18,14 @@
 					<tr>
 						<th id="fname" data-class="expand">First Name</th>
 						<th id="last">Last Name</th>
-						<th id="email" data-hide="phone">E-mail</th>
+                        <!-- <th id="email" data-hide="phone">E-mail</th> -->
 						<th id="mobile" data-hide="phone">Mobile Phone</th>
 						<th id="home" data-hide="phone">Home Phone</th>
-						<th id="address" data-hide="phone,tablet">Address</th>
-						<th id="address2" data-hide="phone,tablet">Address 2</th>
+                        <!-- <th id="address" data-hide="phone,tablet">Address</th>
+                        <th id="address2" data-hide="phone,tablet">Address 2</th> -->
 						<th id="city" data-hide="phone,tablet">City</th>
-						<th id="state" data-hide="phone,tablet">State</th>
-						<th id="zip" data-hide="phone,tablet">Zip</th>
+                        <!-- <th id="state" data-hide="phone,tablet">State</th>
+                        <th id="zip" data-hide="phone,tablet">Zip</th> -->
 						<th id="school" data-hide="phone,tablet">School</th>
 						<th id="bd" data-hide="phone,tablet">Birthday</th>
 						<th id="status" data-hide="phone,tablet">Status</th>
@@ -40,14 +40,14 @@
 					<tr id="contact-<?php print $contact['id'];?>" data-id="<?php print $contact['id'];?>">
     					<td><?php print $contact['fname'];?></td>
     					<td><?php print $contact['lname'];?></td>
-    					<td><?php print $contact['email'];?></td>
+                        <!-- <td><?php print $contact['email'];?></td> -->
     					<td><?php print $contact['mobile_phone'];?></td>
     					<td><?php print $contact['home_phone'];?></td>
-    					<td><?php print $contact['address'];?></td>
-    					<td><?php print $contact['address2'];?></td>
+                        <!-- <td><?php print $contact['address'];?></td>
+                        <td><?php print $contact['address2'];?></td> -->
     					<td><?php print $contact['city'];?></td>
-    					<td><?php print $contact['state'];?></td>
-    					<td><?php print $contact['zip'];?></td>
+                        <!-- <td><?php print $contact['state'];?></td>
+                        <td><?php print $contact['zip'];?></td> -->
     					<td><?php print $contact['school'];?></td>
     					<td><?php print $print_bd;?></td>
     					<td><?php 

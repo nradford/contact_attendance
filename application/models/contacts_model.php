@@ -28,10 +28,16 @@ class contacts_model extends CI_Model{
         $contact_data['status'] = $this->input->post('status');
         $contact_data['lname'] = $this->input->post('lname');
         $contact_data['fname'] = $this->input->post('fname');
+
         $bd = "";
         if($this->input->post('birthdate') != ""){
-            $bd = date("Ymd", strtotime($this->input->post('birthdate')));
+            //convert birthdate to yyyy-mm-dd for storing in the db
+            $bd = $this->input->post('birthdate');
+            $bd_parts = explode("/", $bd);
+            $bd = $bd_parts[2]."/".$bd_parts[0]."/".$bd_parts[1];
+            $bd = date("Y-m-d", strtotime($bd));
         }
+
         $contact_data['birthdate'] = $bd;
         $contact_data['email'] = $this->input->post('email');
         $contact_data['mobile_phone'] = $this->input->post('mobile');
@@ -43,7 +49,7 @@ class contacts_model extends CI_Model{
         $contact_data['zip'] = $this->input->post('zip');
         $contact_data['school'] = $this->input->post('school');
         $contact_data['notes'] = htmlspecialchars($this->input->post('notes'));
-      
+
         if($contact_id == ""){//add new contact
             $this->db->insert('contacts', $contact_data);
             $contact_id = $this->db->insert_id();

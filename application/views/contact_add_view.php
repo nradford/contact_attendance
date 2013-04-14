@@ -1,58 +1,3 @@
-<?php
-$states = array(
-'AL'=>"Alabama",
-'AK'=>"Alaska",
-'AZ'=>"Arizona",
-'AR'=>"Arkansas",
-'CA'=>"California",
-'CO'=>"Colorado",
-'CT'=>"Connecticut",
-'DE'=>"Delaware",
-'DC'=>"District Of Columbia",
-'FL'=>"Florida",
-'GA'=>"Georgia",
-'HI'=>"Hawaii",
-'ID'=>"Idaho",
-'IL'=>"Illinois",
-'IN'=>"Indiana",
-'IA'=>"Iowa",
-'KS'=>"Kansas",
-'KY'=>"Kentucky",
-'LA'=>"Louisiana",
-'ME'=>"Maine",
-'MD'=>"Maryland",
-'MA'=>"Massachusetts",
-'MI'=>"Michigan",
-'MN'=>"Minnesota",
-'MS'=>"Mississippi",
-'MO'=>"Missouri",
-'MT'=>"Montana",
-'NE'=>"Nebraska",
-'NV'=>"Nevada",
-'NH'=>"New Hampshire",
-'NJ'=>"New Jersey",
-'NM'=>"New Mexico",
-'NY'=>"New York",
-'NC'=>"North Carolina",
-'ND'=>"North Dakota",
-'OH'=>"Ohio",
-'OK'=>"Oklahoma",
-'OR'=>"Oregon",
-'PA'=>"Pennsylvania",
-'RI'=>"Rhode Island",
-'SC'=>"South Carolina",
-'SD'=>"South Dakota",
-'TN'=>"Tennessee",
-'TX'=>"Texas",
-'UT'=>"Utah",
-'VT'=>"Vermont",
-'VA'=>"Virginia",
-'WA'=>"Washington",
-'WV'=>"West Virginia",
-'WI'=>"Wisconsin",
-'WY'=>"Wyoming");
-?>
-
 <form action="<?php print base_url();?>contacts/contact_save" id="contact-add-form" class="" method="post" accept-charset="utf-8">
     <legend>Contact Info</legend>
     <fieldset>
@@ -74,7 +19,6 @@ $states = array(
     		<label for="date">Birthday:</label>
     		<?php
             $bd = "";
-            print strtotime($contact['birthdate']);
             if(strtotime($contact['birthdate'])){
                $bd = date("n/j/Y", strtotime($contact['birthdate']));
             }?>
@@ -84,8 +28,14 @@ $states = array(
               <input type="text" class="input-medium" readonly>
             </div> -->
             
+                <!-- <a href="#" id="birthdate-link" data-type="date" data-pk="1" data-url="/post" data-original-title="Select date"><?php print $bd;?></a> -->
+                
+            <div class="input-append date" id="birthdate" data-date="<?php print $bd;?>">
+                <input class="span2" type="text" name="birthdate" value="<?php print $bd;?>">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
             
-    		<input type="date" name="birthdate" id="birthdate" value="<?php print $bd;?>" autocomplete="off" />
+            <!-- <input type="date" name="birthdate" id="birthdate" value="<?php print $bd;?>" autocomplete="off" /> -->
     		
     		<label for="email">Email:</label>
     		<input type="email" value="<?php print $contact['email'];?>" name="email" id="email" />
@@ -113,9 +63,9 @@ $states = array(
             <label for="state">State</label>
             <select name="state" id="state">
             	<option value="">Select a State</option>
-            	<?php foreach($states as $key => $value){?>
-            		<option value="<?php print $value;?>"<?php if($contact["state"]==$key)print " selected";?>><?php print $value;?></option>
-            	<?php }?>
+            	<?php foreach($this->config->item('states') as $key => $value){?>
+            		<option value="<?php print $value;?>"<?php if($contact["state"]==$key)print " selected";?>><?php print $value;?></option><?php 
+                }?>
             </select>
 
             <label for="school">School:</label>
@@ -125,8 +75,12 @@ $states = array(
     		<textarea name="notes" id="notes"><?php print $contact['notes'];?></textarea>
         </div><!-- .span6 -->
 
-        <div class="clearfix"></div>
-        <button type="submit" class="btn btn-large btn-primary">Save Contact</button>
+        <div class="span12">
+            <p id="button-row">
+                <a href="<?php print base_url();?>contacts" class="btn btn-large btn-primary contact-cancel-btn">Cancel</a>
+                <button type="submit" class="btn btn-large btn-primary">Save Info</button>
+            <p/>
+        </div><!-- .span6 -->
     </fieldset>
 </form>
 
@@ -143,5 +97,9 @@ $states = array(
             elements.state.val(state);
             elements.city.val(city);
         });
-    })//end document.ready
+        
+        $('#birthdate').datepicker({
+            format: "m/d/yyyy"
+        });
+    });//end document.ready
 </script>
