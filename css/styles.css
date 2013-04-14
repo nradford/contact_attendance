@@ -45,6 +45,32 @@ body{
     height: 20px;
 }
 
+#contacts-list-tbl tr{
+    cursor: pointer;
+}
+
+#button-row{
+    margin: 20px 0 0 0;
+}
+
+#button-row button{margin: 5px 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  *ContentEditable styles
 */
