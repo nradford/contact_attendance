@@ -44,12 +44,14 @@
             
             <ul class="nav">
                 <li<?php if($this->uri->segment(1) == "check_in")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
+                <li<?php if($this->uri->segment(2) == "check_in_teachers")print ' class="active"';?>><a href="<?php print base_url();?>check_in/check_in_teachers">Check-In Teachers</a></li>
                 <li<?php if($this->uri->segment(1) == "check_out")print ' class="active"';?>><a href="<?php print base_url();?>check_out">Check-Out</a></li>
-                <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
             </ul>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
+                    <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
+                    <li<?php if($this->uri->segment(1) == "class_report")print ' class="active"';?>><a href="<?php print base_url();?>class_report">Class Report</a></li>
                     <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li>
                 </ul>
 
