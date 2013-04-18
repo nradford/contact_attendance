@@ -40,6 +40,15 @@ body{
     padding: 7px 9px;
 }
 
+#contacts-search, #teachers-search{
+    width: 265px;
+}
+
+#check-in-date, #check-out-date{
+    height: 35px;
+    text-align: right;
+}
+
 .check-in-notes{
     width: 250px;
     height: 20px;
@@ -55,16 +64,17 @@ body{
 
 #button-row button{margin: 5px 0;}
 
+#incident-report-textarea{
+    width: 600px;
+    height: 250px;
+}
 
-
-
-
-
-
-
-
-
-
+/**
+ * Bootstrap overrides
+*/
+.navbar .nav>li>a {
+    padding: 10px 8px !important;
+}
 
 
 
@@ -84,7 +94,7 @@ body{
 }
 
 [contenteditable]:hover, [contenteditable]:focus {
-  background: #FFFFD3;
+  background: #f9f9f9;
 }
 
 [contenteditable]:focus {
