@@ -1,19 +1,17 @@
 <form action="<?php print base_url();?>contacts/contact_edit" id="contacts-list-form" method="post" accept-charset="utf-8">
     <input type="hidden" name="contact_id" value="" id="contact-id" />
-
-    <div class="row-fluid">
-    	<div class="pull-left">
-    		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
-    	</div>
-
         <div class="pull-right">
             <a href="<?php print base_url();?>contacts/contact_add" class="btn btn-small btn-primary">Add New Kid</a>
         </div>
-        <!-- <div class="span8" id="check-in-date"><?php print date("D, F j Y", strtotime(date("Ymd")));?></div> -->
+        <div class="row-fluid">
+
+    	<div class="pull-left">
+    		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" autocorrect="off" autocapitalize="off" />
+    	</div>
     </div><!-- row-fluid -->
     <?php
-             if(sizeof($contacts) > 0){?>
-			<table id="contacts-list-tbl" class="table table-striped table-bordered table-condensed footable">
+    if(sizeof($contacts) > 0){?>
+			<table id="contacts-list-tbl" class="table table-striped table-bordered table-condensed footable" data-filter="#contacts-search">
 				<thead>
 					<tr>
 						<th id="fname" data-class="expand">First Name</th>
@@ -76,7 +74,7 @@
         
 		$('#contacts-list-tbl').on('click', "tbody tr td", function(){
             $$this = $(this);
-            if($$this.hasClass('expand')){
+            if($$this.hasClass('expand')){//allow click on the expand cells to expand them and not go the edit page
                 return false;
             }else{
                 $('#contact-id').val($(this).parent().attr('data-id'));
@@ -85,8 +83,8 @@
 		});
 
 
-		//prevent the form from submiting when enter/return is pressed when search box is focused
-        // $('#check_in_form').submit(function(e){e.preventDefault();});
+        // prevent the form from submiting when enter/return is pressed when search box is focused
+        // $('#contacts-list-form').submit(function(e){e.preventDefault();});
 
 
 /*
@@ -118,8 +116,6 @@
 */
 
 
-			
-		<?if($_GET['notification']){?>$.jGrowl('<?print $_GET['notification'];?>');<?}?>
 
 	});//end document.ready
 </script>

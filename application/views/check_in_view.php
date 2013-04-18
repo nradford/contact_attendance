@@ -1,15 +1,13 @@
 <form action="<?php print base_url();?>check_in" id="check-in-form" method="post">
     <div class="row-fluid">
-    	<div class="pull-left">
-    		<input type="text" name="contacts_search" class="inputf" value="" id="contacts-search" placeholder="Search" />
-    	</div>
-			
         <div class="pull-right" id="check-in-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
-            <!-- <a href="#" id="check-in-date-link" data-type="date" data-pk="1" data-url="" data-original-title="Select date"><?php print date("D, F j Y", strtotime($check_date));?></a> -->
             <a href="#" id="check-in-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
-            
         </div>
+
+    	<div class="pull-left">
+    		<input type="text" name="contacts_search" value="" id="contacts-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" />
+    	</div>
     </div><!-- row-fluid -->
 
     <div class="row-fluid">
@@ -114,7 +112,7 @@
             minLength: 2,
             source: function (typeahead, process){
                 $.ajax({
-                    url: "check_in/contacts_search/?callback=options&limit=20&check_date=<?php print $check_date;?>",
+                    url: "<?php print base_url();?>check_in/contacts_search/?callback=options&limit=20&check_date=<?php print $check_date;?>",
                     type: 'get',
                     data: {term: typeahead},
                     dataType: 'json',
@@ -230,7 +228,8 @@
             //      }
             // }   
         });
-        
+
+        //remove the editable classes so that the plugin will not assume it has already been initialized
         jQuery('.contact-note').removeClass('editable editable-click').editable({
             url: '<?php print base_url();?>contacts/note_save'
         });

@@ -1,5 +1,5 @@
 <form action="<?print base_url();?>login/login_submit" method="post" class="form-signin">
-	<input type="email" name="email" value="<?php if($this->session->userdata('email') != "")print $this->session->userdata('email');?>" id="email" class="input-block-level" placeholder="Email" />
+	<input type="email" name="email" value="<?php if($this->session->userdata('email') != "")print $this->session->userdata('email');?>" id="email" class="input-block-level" placeholder="Email" autocorrect="off" autocapitalize="off" />
 	<input type="password" name="password" value="" id="password" class="input-block-level" placeholder="Password" />
 
 	<p>
