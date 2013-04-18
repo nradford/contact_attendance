@@ -1,32 +1,33 @@
 <form action="<?php print base_url();?>check_out" id="check-out-form" method="post">
     <div class="row-fluid">
-    	<div class="pull-left">
-            <input type="text" id="check-out-search" class="inputf" placeholder="Search" />
-    	</div>
-
         <div class="pull-right" id="check-out-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
             <a href="#" id="check-out-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
         </div>
+
+        <!-- <div class="pull-left">
+            <input type="text" id="contacts-search" class="inputf" placeholder="Search" />
+        </div> -->
     </div><!-- row-fluid -->
 
     <div class="row-fluid">
-        <h3>Checked In</h3>
-		<table id="check-in-table" class="table table-striped table-bordered table-condensed footable" data-filter="#check-out-search">
-			<thead>
-			<tr>
-				<th class="check-in-name" data-class="expand">Name</th>
-				<th class="check-in-time">Checked In</th>
-                <th class="check-in-class" data-hide="phone">Class</th>
-                <th class="check-in-code">Check In Code</th>
-				<th class="check-in-note" data-hide="phone">Notes</th>
-				<th class="check-out-col"></th>
-			</tr>
-			</thead>
+        <h3>Checked In</h3><?php
 
-			<tbody><?php
-                $cnt = 0;
-				if(sizeof($check_ins) > 0){
+        $cnt = 0;
+		if(sizeof($check_ins) > 0){?>
+    		<table id="check-in-table" class="table table-striped table-bordered table-condensed footable" data-filter="#contacts-search">
+    			<thead>
+    			<tr>
+    				<th class="check-out-name" data-class="expand">Name</th>
+    				<th class="check-out-time">Checked In</th>
+                    <th class="check-out-class" data-hide="phone">Class</th>
+                    <th class="check-out-code">Check In Code</th>
+    				<th class="check-out-note" data-hide="phone">Notes</th>
+    				<th class="check-out-col"></th>
+    			</tr>
+                </thead>
+
+                <tbody><?php
 					$cnt++;
 					foreach($check_ins as $check_in){
                         $check_in_time = "";
@@ -55,23 +56,26 @@
 							</td>
 						</tr><?
 					}
-					$cnt++;
-				}?>
-			</tbody>
-		</table>
-        
-        <h3>Checked Out</h3>
-		<table id="check-out-table" class="table table-striped table-bordered table-condensed footable">
-			<thead>
-			<tr>
-				<th class="check-out-name" data-class="expand">Name</th>
-				<th class="check-out-time">Checked Out</th>
-                <th class="check-out-class" data-hide="phone">Class</th>
-                <th class="check-in-code">Check In Code</th>
-			</tr>
-			</thead>
-			<tbody><?php
-				if(sizeof($check_outs) > 0){
+					$cnt++;?>
+    			</tbody>
+    		</table>
+            <?php
+        }else{?>
+            <p class="alert">No Check-Ins Found.</p><?php
+        }?>
+
+        <h3>Checked Out</h3><?php
+        if(sizeof($check_outs) > 0){?>
+    		<table id="check-out-table" class="table table-striped table-bordered table-condensed footable">
+    			<thead>
+    			<tr>
+    				<th class="check-out-name" data-class="expand">Name</th>
+    				<th class="check-out-time">Checked Out</th>
+                    <th class="check-out-class" data-hide="phone">Class</th>
+                    <th class="check-in-code">Check In Code</th>
+    			</tr>
+    			</thead>
+    			<tbody><?php
 					foreach($check_outs as $check_out){
                         $check_out_time = "";
 						if($check_out['checked_out'] != "")$check_out_time = date("g:i a", strtotime($check_out['checked_out']));?>
@@ -90,11 +94,15 @@
                                 <?php print $check_out['check_in_code'];?>
                             </td>
 						</tr><?
-					}
-				}?>
-            </tbody>
-        </table>
-
+					}?>
+                </tbody>
+            </table><?php
+        }else{?>
+            <p class="alert">No Check-Outs Found.</p><?php   
+        }?>
+            
+            
+            
         <!-- <a href="#" id="pencil"><i class="icon-pencil"></i> [edit]</a>
         <div id="class-report" data-pk="1" data-type="wysihtml5" data-toggle="manual" data-original-title="Enter notes" class="editable" tabindex="-1" style="display: block;"></div> -->
     </div><!-- row-fluid -->
@@ -102,7 +110,7 @@
 
 <script>
 	$(document).ready(function(){
-        $('#contacts-search').focus();
+        // $('#contacts-search').focus();
         
         // $.fn.editable.defaults.mode = 'popover';
         $.fn.editable.defaults.placement = 'bottom';
@@ -138,10 +146,9 @@
                 dataType: 'json',
                 data: 'check_in_id='+$(this).attr('data-id'),
                 success: function(data){
-                    console.log(data.check_out_id);
                 	if(data.check_out_id > 0){
                 		$('#check-out-'+data.check_out_id).fadeOut(300);
-                		$('#check-out-search').focus();
+                		$('#contacts-search').focus();
 
                         //add the checked out entry to the checked-out-list
                         // $('#checked-out-list').append('<li>'+data.name+' - '+data.check_in_code+' - '+data.check_out_time+'</li>')
