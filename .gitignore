@@ -1,4 +1,5 @@
 .DS_Store
+todo.md
 application/config/config.php
 application/config/database.php
 */config/development
@@ -7,3 +8,4 @@ application/config/database.php
 */cache/*
 */cache/!index.html
 /.DS_Store
+/todo.md
