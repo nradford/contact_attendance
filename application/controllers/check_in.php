@@ -100,6 +100,27 @@ class check_in extends CI_Controller{
 
         print $update;
     }
+
+/**
+ * Offering methods
+*/
+    public function offering_update(){
+        $this->load->model('check_in_model');
+        $results = $this->check_in_model->offering_update();
+        
+        print $results;
+    }
+
+/**
+ * Visitor methods
+*/    
+    public function visitor_update(){
+        $this->load->model('check_in_model');
+        $results = $this->check_in_model->visitor_update();
+        
+        print $results;
+    }
+
 }
 /* End of file check_in.php */
 /* Location: ./application/controllers/check_in.php */

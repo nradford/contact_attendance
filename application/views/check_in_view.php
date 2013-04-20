@@ -18,6 +18,8 @@
 				<th class="check-in-time">Checked In</th>
                 <th class="check-in-class" data-hide="phone">Class</th>
                 <th class="check-in-code">Check In Code</th>
+                <th class="check-in-visitor">Visitor</th>
+                <th class="check-in-offering">Offering</th>
 				<th class="check-in-note" data-hide="phone">Notes</th>
 				<th class="check-in-delete"></th>
 			</tr>
@@ -43,6 +45,16 @@
 
                             <td>
                                 <?php print $check_in['check_in_code'];?>
+                            </td>
+
+                            <td>
+                                <?php //print $check_in['visitor'];?>
+                                <a href="#" id="check-in-visitor-link-<?php print $check_in['id'];?>" class="check-in-visitor-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['visitor'];?>"></a>
+                                
+                            </td>
+
+                            <td>
+                                <a href="#" id="check-in-offering-<?php print $check_in['id'];?>" data-type="text" data-pk="<?php print $check_in['id'];?>" class="check-in-offering"><?php print $check_in['offering'];?></a>
                             </td>
 
 							<td>
@@ -203,7 +215,8 @@
 	});//end document.ready
     
     function init_x_editable(){
-        jQuery('.check-in-class-link').editable({
+        //remove the editable classes so that the plugin will not assume it has already been initialized
+        jQuery('.check-in-class-link').removeClass('editable editable-click').editable({
             url: '<?php print base_url();?>check_in/class_update',
             title: 'Select A Class',
             source: [
@@ -227,6 +240,22 @@
             //          $(this).empty(); 
             //      }
             // }   
+        });
+
+        //remove the editable classes so that the plugin will not assume it has already been initialized
+        jQuery('.check-in-visitor-link').removeClass('editable editable-click').editable({
+            url: '<?php print base_url();?>check_in/visitor_update',
+            // title: 'Visitor?',
+            source: [
+                {value: "0", text: "No"},
+                {value: "1", text: "Yes"}
+            ],
+            showbuttons: false 
+        });
+
+        //remove the editable classes so that the plugin will not assume it has already been initialized
+        jQuery('.check-in-offering').removeClass('editable editable-click').editable({
+            url: '<?php print base_url();?>check_in/offering_update'
         });
 
         //remove the editable classes so that the plugin will not assume it has already been initialized

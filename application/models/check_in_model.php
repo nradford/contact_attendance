@@ -6,7 +6,7 @@ class check_in_model extends CI_Model{
 	}
 
 	public function check_ins_get($date){
-        $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, check_in.checked_out, check_in.check_in_code, classes.id AS class_id, classes.name AS class_name FROM contacts c ";
+        $sql = "SELECT c.id AS contact_id, c.fname, c.lname, c.notes, check_in.id, check_in.checked_in, check_in.checked_out, check_in.check_in_code, classes.id AS class_id, classes.name AS class_name, visitor, offering FROM contacts c ";
         $sql .= "LEFT JOIN check_in ON c.id=check_in.contact_id ";
         $sql .= "LEFT JOIN classes ON check_in.class_id=classes.id ";
         $sql .= "WHERE check_date='".$date."' ORDER BY checked_in DESC";
@@ -205,4 +205,32 @@ class check_in_model extends CI_Model{
             return "1";
         }
     }
+
+    /**
+     * Offering methods
+    */
+    public function offering_update(){
+        $sql = "UPDATE check_in SET offering='".$this->input->post('value')."' WHERE id=".$this->input->post('pk');
+		$query = $this->db->query($sql);
+
+        if($this->db->_error_message != ""){
+            return $this->db->_error_message;
+        }else{
+            return "1";
+        }
+    }
+
+    /**
+     * Visitor methods
+    */
+    public function visitor_update(){
+        $sql = "UPDATE check_in SET visitor='".$this->input->post('value')."' WHERE id=".$this->input->post('pk');
+		$query = $this->db->query($sql);
+
+        if($this->db->_error_message != ""){
+            return $this->db->_error_message;
+        }else{
+            return "1";
+        }
+    }   
 }
