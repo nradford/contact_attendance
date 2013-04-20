@@ -78,7 +78,11 @@ body{
 
 
 
-
+ul.typeahead li a{
+    width: 236px;
+    height: 40px;
+    line-height: 40px;
+}
 
 
 /**
