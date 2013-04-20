@@ -13,7 +13,6 @@
     <div class="row-fluid">
         <h3>Checked In</h3><?php
 
-        $cnt = 0;
 		if(sizeof($check_ins) > 0){?>
     		<table id="check-in-table" class="table table-striped table-bordered table-condensed footable" data-filter="#contacts-search">
     			<thead>
@@ -28,7 +27,7 @@
                 </thead>
 
                 <tbody><?php
-					$cnt++;
+                    $num_check_ins = 0;
 					foreach($check_ins as $check_in){
                         $check_in_time = "";
 						if($check_in['checked_in'] != "")$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
@@ -36,7 +35,7 @@
 							<td><?php print $check_in['fname']." ".$check_in['lname'];?></td>
 							<td>
 								<?print $check_in_time;?>
-								<input type="hidden" name="check_out_id_<?php print $cnt;?>" value="<?print $check_in['id'];?>" id="check-out-id-<?print $check_in['id'];?>" />
+								<input type="hidden" name="check_in_id_<?php print $num_check_ins;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
 							</td>
                                 
                             <td>
@@ -55,8 +54,9 @@
 								<a href='#' class='check-out-btn btn btn-inverse' data-id='<?print $check_in['id'];?>' id='check-out-btn-<?print $check_in['id'];?>'>Check Out</a>
 							</td>
 						</tr><?
-					}
-					$cnt++;?>
+
+                        $num_check_ins++;
+					}?>
     			</tbody>
     		</table>
             <?php
@@ -110,6 +110,7 @@
 
 <script>
 	$(document).ready(function(){
+        var num_check_ins = <?php print $num_check_ins;?>;
         // $('#contacts-search').focus();
         
         // $.fn.editable.defaults.mode = 'popover';
@@ -147,18 +148,30 @@
                 data: 'check_in_id='+$(this).attr('data-id'),
                 success: function(data){
                 	if(data.check_out_id > 0){
-                		$('#check-out-'+data.check_out_id).fadeOut(300);
-                		$('#contacts-search').focus();
+                        num_check_ins = num_check_ins - 1;
+                        console.log(num_check_ins);
+                        if(num_check_ins == 0){//if this is the last check-in
+                            //remove the table and replace with a messge the there are no more check-ins
+                            $("#check-in-table").fadeOut(300, function(){
+                                $(this).prev('h3').after('<p class="alert">No More Check-Ins.</p>');
+                            });
+                        }else{
+                            $('#check-out-'+data.check_out_id).fadeOut(300, function(){
+                                $(this).remove();
+                            });
+                        }
 
-                        //add the checked out entry to the checked-out-list
-                        // $('#checked-out-list').append('<li>'+data.name+' - '+data.check_in_code+' - '+data.check_out_time+'</li>')
-                        
-                        var line_item = "<tr id='check-out-"+check_out_id+"'>";
+                        //add the checked out entry to the checked-out-list                        
+                        var line_item = "<tr id='check-out-"+data.check_out_id+"'>";
                         line_item += "<td>"+data.name+"</td>";
                         line_item += "<td>"+data.check_out_time+"</td>";
-                        line_item += '<td><a id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+data.class_id+'"></a></td>';
+                        line_item += '<td><a id="check-in-class-link-"'+data.check_out_id+'" class="check-in-class-link" data-type="select" data-pk="'+data.check_out_id+'" data-value="'+data.class_id+'"></a></td>';
                         line_item += "<td>"+data.check_in_code+"</td>";
                         $('#check-out-table tbody').prepend(line_item).hide().fadeIn(300);
+                        
+                        if($('#check-in-table')){
+                            $
+                        }
                 	}else{
                 		alert('There was an error checking out the entry :(\nPlease try again later.')
                 	}
