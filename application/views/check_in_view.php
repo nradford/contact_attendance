@@ -1,6 +1,6 @@
 <form action="<?php print base_url();?>check_in" id="check-in-form" method="post">
     <div class="row-fluid">
-        <div class="pull-right" id="check-in-date">
+        <div class="pull-right" id="data-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
             <a href="#" id="check-in-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
         </div>
@@ -31,7 +31,7 @@
 					$cnt++;
 					foreach($check_ins as $check_in){
                         $check_in_time = "";
-						if($check_in['checked_in'] != "")$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
+						if($check_in['checked_in'] > 0)$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
 						<tr id='check-in-<?print $check_in['id'];?>'>
 							<td><?php print $check_in['fname']." ".$check_in['lname'];?></td>
 							<td>
@@ -48,9 +48,7 @@
                             </td>
 
                             <td>
-                                <?php //print $check_in['visitor'];?>
                                 <a href="#" id="check-in-visitor-link-<?php print $check_in['id'];?>" class="check-in-visitor-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['visitor'];?>"></a>
-                                
                             </td>
 
                             <td>
@@ -78,7 +76,11 @@
 
 <script>
 	$(document).ready(function(){
-        $('#contacts-search').focus();
+        $('#contacts-search').focus().keydown(function(e){
+            if(e.keyCode == 13){//prevent form from submiting when return/enter is pressed
+                e.preventDefault();
+            }
+        });
         
         // $.fn.editable.defaults.mode = 'popover';
         $.fn.editable.defaults.placement = 'bottom';
@@ -105,20 +107,6 @@
         init_x_editable();//initialize the dynamic x-editable fields
 
         $('#check-in-table').footable();
-
-/*        
-        $('#class-report').editable({
-            mode: 'inline'
-        }); 
-        $('#pencil').click(function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $('#class-report').editable('toggle');
-       }); 
-*/     
-
-		//prevent the form from submiting when enter/return is pressed when search box is focused
-        // $('#check-in-form').submit(function(e){e.preventDefault();});
 
         $('#contacts-search').typeahead({
             minLength: 2,
@@ -161,8 +149,10 @@
                                  var line_item = "<tr id='check-in-"+check_in_id+"'>";
                                  line_item += "<td>"+check_in_data.name+"</td>";
                                  line_item += "<td>"+check_in_data.check_in_time+"</td>";
-                                 line_item += '<td><a id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+check_in_data.class_id+'"></a></td>';
+                                 line_item += '<td><a href="#" id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+check_in_data.class_id+'"></a></td>';
                                  line_item += "<td>"+check_in_data.check_in_code+"</td>";
+                                 line_item += '<td><a href="#" id="check-in-visitor-link-'+check_in_id+' class="check-in-visitor-link" data-type="select" data-pk="'+check_in_id+'" data-value="No">No</a></td>';
+                                 line_item += '<td><a href="#" id="check-in-offering-'+check_in_id+'" data-type="text" data-pk="'+check_in_id+'" class="check-in-offering"></a></td>';
                                  line_item += '<td><a href="#" id="contact-note-'+contact_id+'" data-type="textarea" data-pk="'+contact_id+'" class="contact-note">'+check_in_data.notes+'</a></td>';
                                  line_item += "<td><a href='#' class='del-line-item' data-id='"+check_in_id+"' id='check-in-delete-"+check_in_id+"'><i class='icon-trash''></i></a></td></tr>";
                                  $('#check-in-table tbody').prepend(line_item).hide().fadeIn(300);
@@ -207,11 +197,6 @@
                 });
             }
         });
-
-
-			
-        // <?if($_GET['notification']){?>$.jGrowl('<?print $_GET['notification'];?>');<?}?>
-
 	});//end document.ready
     
     function init_x_editable(){

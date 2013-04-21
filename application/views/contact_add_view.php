@@ -1,15 +1,11 @@
 <form action="<?php print base_url();?>contacts/contact_save" id="contact-add-form" class="" method="post" accept-charset="utf-8">
+    <input type="hidden" name="from_check_in" value="<?php print $this->input->get('visitor');?>" id="from-check-in" />
+
     <legend>Contact Info</legend>
     <fieldset>
     	<input type="hidden" name="contact_id" value="<?php print $contact['id'];?>" id="contact_id" />
 
-        <div class="span6">
-    		<label for="class">Status:</label>
-    		<select name="status">
-    			<option value="1" <?if($contact['status']=="1")print " selected";?>>Active</option>
-    			<option value="0" <?if($contact['status']=="0")print " selected";?>>Non Active</option>
-    		</select>
-    									
+        <div class="span6">    									
         	<label for="fname">First Name:</label>
         	<input type="text" value="<?php print $contact['fname'];?>" name="fname" id="fname" />
 
@@ -38,6 +34,9 @@
 
     		<label for="home-phone">Home Phone:</label>
     		<input type="tel" value="<?php print $contact['home_phone'];?>" name="home_phone" id="home-phone" />
+            
+            <label for="school">School:</label>
+    		<input type="text" value="<?php print $contact['school'];?>" name="school" id="school" />
         </div><!-- .span6 -->
 
         <div class="span6">
@@ -61,9 +60,12 @@
                 }?>
             </select>
 
-            <label for="school">School:</label>
-    		<input type="text" value="<?php print $contact['school'];?>" name="school" id="school" />
-    		
+    		<label for="class">Status:</label>
+    		<select name="status">
+    			<option value="1" <?if($contact['status']=="1")print " selected";?>>Active</option>
+    			<option value="0" <?if($contact['status']=="0")print " selected";?>>Non Active</option>
+    		</select>
+
     		<label for="notes">Notes:</label>
     		<textarea name="notes" id="notes"><?php print $contact['notes'];?></textarea>
         </div><!-- .span6 -->
@@ -71,6 +73,10 @@
         <div class="span12">
             <p id="button-row">
                 <a href="<?php print base_url();?>contacts" class="btn btn-large btn-primary contact-cancel-btn">Cancel</a>
+                <?php
+                if($contact['id'] > 0){?>
+                    <a href="<?php print base_url();?>contacts/contact_delete" id="contact-delete-btn" class="btn btn-large btn-primary">Delete</a><?php
+                }?>
                 <button type="submit" class="btn btn-large btn-primary">Save Info</button>
             <p/>
         </div><!-- .span6 -->
@@ -93,6 +99,14 @@
         
         $('#birthdate').datepicker({
             format: "m/d/yyyy"
+        });
+        
+		$("#contact-delete-btn").click(function(e){
+            e.preventDefault();
+			var confirm_delete=confirm("Are you sure you want to delete this record?");
+			if(confirm_delete){
+                $('#contact-add-form').attr('action', '<?php print base_url();?>contacts/contact_delete').submit();
+            }
         });
     });//end document.ready
 </script>

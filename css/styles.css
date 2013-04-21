@@ -1,19 +1,7 @@
-body{
-    padding-top: 60px;
-    padding-bottom: 40px;
-}
-.sidebar-nav{
+/*.sidebar-nav{
     padding: 9px 0;
 }
-
-@media (max-width: 980px) {
-    /* Enable use of floated navbar text */
-    .navbar-text.pull-right {
-        float: none;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
+*/
 
 .form-signin {
     max-width: 300px;
@@ -44,29 +32,40 @@ body{
     width: 265px;
 }
 
-#check-in-date, #check-out-date{
-    height: 35px;
+#data-date{
+    height: 40px;
+    line-height: 40px;
     text-align: right;
+    padding: 0 10px 0 0;
+/*    width: 300px;*/
 }
 
+/*@media (max-width: 400px) {
+    #data-date{
+        text-align: left;
+        background: blue;
+        float: left;
+    }   
+}*/
+    
 .check-in-notes{
     width: 250px;
     height: 20px;
 }
 
-#contacts-list-tbl tr{
-    cursor: pointer;
-}
+/*#contacts-list-tbl{margin-top: 15px;}*/
 
-#button-row{
-    margin: 20px 0 0 0;
-}
+#contacts-list-tbl tr{cursor: pointer;}
+
+#button-row{margin: 20px 0 0 0;}
 
 #button-row button{margin: 5px 0;}
 
 #incident-report-textarea{
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     height: 250px;
+    padding: 8px;
 }
 
 /**
@@ -76,14 +75,25 @@ body{
     padding: 10px 8px !important;
 }
 
-
-
 ul.typeahead li a{
     width: 236px;
     height: 40px;
     line-height: 40px;
 }
 
+h2, h3, h4, h5, h6{
+    margin: 2px 0;
+}
+
+.typeahead{margin-top: 0px;}
+
+/*.table-striped tfoot td{
+    color: #fff;
+    background: ;
+    font-weight: bold;
+    padding: 5px;
+}
+*/
 
 /**
  *ContentEditable styles

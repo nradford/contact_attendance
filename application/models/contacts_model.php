@@ -5,7 +5,7 @@ class contacts_model extends CI_Model{
         validate_user($this->session->userdata);
 	}
 
-	function contacts_get(){
+	public function contacts_get(){
         $sql = "SELECT * FROM contacts ORDER BY lname ASC, fname ASC";
 		$query = $this->db->query($sql);
 
@@ -13,7 +13,7 @@ class contacts_model extends CI_Model{
 		return $data;
 	}
 
-    function contact_get(){
+    public function contact_get(){
         $sql = "SELECT * FROM contacts WHERE id = ".$this->input->post('contact_id');
 		$query = $this->db->query($sql);
 
@@ -22,7 +22,7 @@ class contacts_model extends CI_Model{
 		return $data;        
     }
 
-    function contact_save(){
+    public function contact_save(){
         $contact_id = $this->input->post('contact_id');
         $contact_data = array();
         $contact_data['status'] = $this->input->post('status');
@@ -56,21 +56,33 @@ class contacts_model extends CI_Model{
         }else{//edit contact
             $this->db->where('id', $contact_id);
             $this->db->update('contacts', $contact_data);
-            if($this->db->_error_message != "")$contact_id = $this->db->_error_message;
+            if($this->db->_error_message() != "")$contact_id = $this->db->_error_message();
         }
         return $contact_id;
     }
 
-    function note_save(){
+    public function note_save(){
         $id = $this->input->post('pk');
         $note = $this->input->post('value');
         
-        $this->db->query('UPDATE contacts SET notes="'.$note.'" WHERE id='.$id);
+        $this->db->query('UPDATE contacts SET notes="'.htmlspecialchars($note).'" WHERE id="'.$id.'"');
 
-        if($this->db->_error_message != ""){
-            return $this->db->_error_message;
+        if($this->db->_error_message() != ""){
+            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
         }else{
             return $id;
+        }
+    }
+
+    public function contact_delete(){
+        $id = $this->input->post('contact_id');
+
+        $this->db->query('DELETE FROM contacts WHERE id="'.$id.'"');
+
+        if($this->db->_error_message() != ""){
+            return 0;
+        }else{
+            return 1;
         }
     }
 }

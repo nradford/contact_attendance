@@ -9,15 +9,15 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- //-beg- concat_css -->
-    <link rel="stylesheet" href="<?php print base_url();?>css/styles.css" />
+    <link rel="stylesheet" href="<?php print base_url();?>css/bootstrap_nav_fix.css" />
     <link rel="stylesheet" href="<?php print base_url();?>css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php print base_url();?>css/footable-0.1.css">
     <link rel="stylesheet" href="<?php print base_url();?>css/bootstrap-editable.css">
+    <link rel="stylesheet" href="<?php print base_url();?>css/styles.css" />
     <!-- //-end- concat_css -->
 
 	<script src="<?print base_url();?>js/modernizr.custom.2.6.2.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script>window.jQuery || document.write('<script src="<?php print base_url()."js/jquery-1.9.1.min.js";?>"><\/script>')</script>
+    <script src="<?php print base_url()."js/jquery-1.9.1.min.js";?>"></script>
 
     <!-- //-beg- concat_js -->
     <script src="<?php print base_url();?>js/moment.min.js"></script>
@@ -44,7 +44,7 @@
             <?php
             if($this->session->userdata('account_id') > 0){?>
                 <ul class="nav">
-                    <li<?php if($this->uri->segment(1) == "check_in")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
+                    <li<?php if($this->uri->segment(1) == "check_in" && $this->uri->segment(2) == "")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
                     <li<?php if($this->uri->segment(2) == "check_in_teachers")print ' class="active"';?>><a href="<?php print base_url();?>check_in/check_in_teachers">Check-In Teachers</a></li>
                     <li<?php if($this->uri->segment(1) == "check_out")print ' class="active"';?>><a href="<?php print base_url();?>check_out">Check-Out</a></li>
                 </ul>
@@ -52,8 +52,9 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
+                        <li<?php if($this->uri->segment(1) == "contacts")print ' class=""';?>><a href="<?php print base_url();?>contacts/contact_add/?visitor=1">Visitor</a></li>
                         <li<?php if($this->uri->segment(1) == "class_report")print ' class="active"';?>><a href="<?php print base_url();?>class_report">Class Report</a></li>
-                        <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li>
+                        <!-- <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li> -->
                     </ul>
 
                     <ul class="nav pull-right"><li><a href="<?php print base_url();?>login/logout" class="">Log Out</a></li></ul>
@@ -65,22 +66,17 @@
 </div>
 
 <div class="container-fluid"><?php
-		if($this->session->userdata('error') != ""){?>
+		if($this->session->flashdata('error') != ""){?>
             <div class="alert alert-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-			    <?php print $this->session->userdata('error');?>
+			    <?php print $this->session->flashdata('error');?>
             </div><?php
-			
-			//clear the error message
-			$this->session->unset_userdata('error');
 		}
 
-		if($this->session->userdata('message') != ""){
-			// print "<p class='ui-state-highlight ui-corner-all'><span class='ui-icon ui-icon-info'></span>".$this->session->userdata('message')."</p>";
-			?><script>
-				$.jGrowl("<?print $this->session->userdata('message');?>");
-			</script><?
-			
-			//clear the message
-			$this->session->unset_userdata('message');
+		if($this->session->flashdata('notification') != ""){?>
+            <div class="alert alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    <?php print $this->session->flashdata('notification');?>
+            </div>
+            <?php
 		}?>

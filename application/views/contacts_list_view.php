@@ -60,33 +60,24 @@
 				</tbody>
 			</table><?php
 		  }else{?>
-				<p class="none-found">No contacts found.<p><?php
+				<p class="alert">No kids found.<p><?php
 		  }?>
-
-
 		</form>
 
 <script>
 	$(document).ready(function(){
-        $('#contacts-search').focus();
-        
         $('.footable').footable();
         
-		$('#contacts-list-tbl').on('click', "tbody tr td", function(){
+		$('#contacts-list-tbl tbody tr').on('click', "td", function(){
             $$this = $(this);
-            if($$this.hasClass('expand')){//allow click on the expand cells to expand them and not go the edit page
-                return false;
+
+            if($$this.hasClass('expand') && $$this.css('background-image') != "none"){//allow click on the expand cells to expand them and not go the edit page
+                // return false;
             }else{
                 $('#contact-id').val($(this).parent().attr('data-id'));
                 $('#contacts-list-form').submit();
             }
 		});
-
-
-        // prevent the form from submiting when enter/return is pressed when search box is focused
-        // $('#contacts-list-form').submit(function(e){e.preventDefault();});
-
-
 /*
 		$('.del-line-item').on('click', function(){
 			// alert($(this).attr('id'));

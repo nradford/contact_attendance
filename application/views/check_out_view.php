@@ -1,17 +1,23 @@
 <form action="<?php print base_url();?>check_out" id="check-out-form" method="post">
+    <div class="pull-left">
+        <h3>Checked In</h3>
+    </div>
+
     <div class="row-fluid">
-        <div class="pull-right" id="check-out-date">
+        <div class="pull-right" id="data-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
             <a href="#" id="check-out-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
         </div>
 
-        <!-- <div class="pull-left">
-            <input type="text" id="contacts-search" class="inputf" placeholder="Search" />
-        </div> -->
+        <div class="pull-left">
+            <!-- <input type="text" id="contacts-search" class="inputf" placeholder="Search" /> -->
+        </div>
     </div><!-- row-fluid -->
 
     <div class="row-fluid">
-        <h3>Checked In</h3><?php
+        
+        <?php
+        $num_check_ins = 0;
 
 		if(sizeof($check_ins) > 0){?>
     		<table id="check-in-table" class="table table-striped table-bordered table-condensed footable" data-filter="#contacts-search">
@@ -27,10 +33,9 @@
                 </thead>
 
                 <tbody><?php
-                    $num_check_ins = 0;
 					foreach($check_ins as $check_in){
                         $check_in_time = "";
-						if($check_in['checked_in'] != "")$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
+						if($check_in['checked_in'] > 0)$check_in_time = date("g:i a", strtotime($check_in['checked_in']));?>
 						<tr id='check-out-<?print $check_in['id'];?>'>
 							<td><?php print $check_in['fname']." ".$check_in['lname'];?></td>
 							<td>
@@ -64,8 +69,7 @@
             <p class="alert">No Check-Ins Found.</p><?php
         }?>
 
-        <h3>Checked Out</h3><?php
-        if(sizeof($check_outs) > 0){?>
+        <h3>Checked Out</h3>
     		<table id="check-out-table" class="table table-striped table-bordered table-condensed footable">
     			<thead>
     			<tr>
@@ -76,30 +80,33 @@
     			</tr>
     			</thead>
     			<tbody><?php
-					foreach($check_outs as $check_out){
-                        $check_out_time = "";
-						if($check_out['checked_out'] != "")$check_out_time = date("g:i a", strtotime($check_out['checked_out']));?>
-						<tr id='check-out-<?print $check_out['id'];?>'>
-							<td><?php print $check_out['fname']." ".$check_out['lname'];?></td>
-							<td>
-								<?print $check_out_time;?>
-								<input type="hidden" name="check_out_id_<?php print $cnt;?>" value="<?print $check_out['id'];?>" id="check-out-id-<?print $check_out['id'];?>" />
-							</td>
+                    if(sizeof($check_outs) > 0){
+    					foreach($check_outs as $check_out){
+                            $check_out_time = "";
+    						if($check_out['checked_out'] != "")$check_out_time = date("g:i a", strtotime($check_out['checked_out']));?>
+    						<tr id='check-out-<?print $check_out['id'];?>'>
+    							<td><?php print $check_out['fname']." ".$check_out['lname'];?></td>
+    							<td>
+    								<?print $check_out_time;?>
+    								<input type="hidden" name="check_out_id_<?php print $cnt;?>" value="<?print $check_out['id'];?>" id="check-out-id-<?print $check_out['id'];?>" />
+    							</td>
                                 
-                            <td>
-                                <?php print $check_out['class_name'];?>
-                            </td>
+                                <td>
+                                    <?php print $check_out['class_name'];?>
+                                </td>
 
-                            <td>
-                                <?php print $check_out['check_in_code'];?>
-                            </td>
-						</tr><?
-					}?>
+                                <td>
+                                    <?php print $check_out['check_in_code'];?>
+                                </td>
+    						</tr><?
+    					}
+                    }?>
                 </tbody>
             </table><?php
-        }else{?>
-            <p class="alert">No Check-Outs Found.</p><?php   
-        }?>
+
+            if(sizeof($check_outs) < 1){?>
+                <p class="alert" id="no-check-outs-alert">No Check-Outs Found.</p><?php   
+            }?>
             
             
             
@@ -153,6 +160,7 @@
                         if(num_check_ins == 0){//if this is the last check-in
                             //remove the table and replace with a messge the there are no more check-ins
                             $("#check-in-table").fadeOut(300, function(){
+                                console.log($(this).prev('h3'));
                                 $(this).prev('h3').after('<p class="alert">No More Check-Ins.</p>');
                             });
                         }else{
@@ -160,6 +168,9 @@
                                 $(this).remove();
                             });
                         }
+
+                        //make sure the none found alert is removed after a check-out is added
+                        $('#no-check-outs-alert').fadeOut(300);
 
                         //add the checked out entry to the checked-out-list                        
                         var line_item = "<tr id='check-out-"+data.check_out_id+"'>";
@@ -169,9 +180,9 @@
                         line_item += "<td>"+data.check_in_code+"</td>";
                         $('#check-out-table tbody').prepend(line_item).hide().fadeIn(300);
                         
-                        if($('#check-in-table')){
-                            $
-                        }
+                        // if($('#check-in-table')){
+//                             $
+//                         }
                 	}else{
                 		alert('There was an error checking out the entry :(\nPlease try again later.')
                 	}

@@ -1,12 +1,12 @@
 <form action="<?php print base_url();?>check_in" id="check-in-teacher-form" method="post">
-    <div class="row-fluid">			
-        <div class="pull-right" id="check-in-date">
+    <div class="row-fluid">
+        <div class="pull-right" id="data-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
             <a href="#" id="check-in-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
         </div>
 
     	<div class="pull-left">
-    		<input type="text" name="teachers_search" class="inputf" value="" id="teachers-search" placeholder="Search" autocorrect="off" autocapitalize="off" />
+    		<input type="text" name="teachers_search" class="inputf" value="" id="teachers-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" />
     	</div>
     </div><!-- row-fluid -->
 
@@ -56,7 +56,12 @@
 
 <script>
 	$(document).ready(function(){
-        $('#teachers-search').focus();
+        $('#teachers-search').focus().keydown(function(e){
+            if(e.keyCode == 13){//prevent form from submiting when return/enter is pressed
+                e.preventDefault();
+            }
+        });
+
         
         // $.fn.editable.defaults.mode = 'popover';
         $.fn.editable.defaults.placement = 'bottom';

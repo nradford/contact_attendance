@@ -108,8 +108,8 @@ class check_in_model extends CI_Model{
         $sql = "UPDATE check_in SET class_id=".$this->input->post('value')." WHERE id=".$this->input->post('pk');
 		$query = $this->db->query($sql);
 
-        if($this->db->_error_message != ""){
-            return $this->db->_error_message;
+        if($this->db->_error_message() != ""){
+            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
         }else{
             return "1";
         }
@@ -199,8 +199,8 @@ class check_in_model extends CI_Model{
         $sql = "UPDATE check_in_teachers SET class_id=".$this->input->post('value')." WHERE id=".$this->input->post('pk');
 		$query = $this->db->query($sql);
 
-        if($this->db->_error_message != ""){
-            return $this->db->_error_message;
+        if($this->db->_error_message() != ""){
+            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
         }else{
             return "1";
         }
@@ -213,8 +213,8 @@ class check_in_model extends CI_Model{
         $sql = "UPDATE check_in SET offering='".$this->input->post('value')."' WHERE id=".$this->input->post('pk');
 		$query = $this->db->query($sql);
 
-        if($this->db->_error_message != ""){
-            return $this->db->_error_message;
+        if($this->db->_error_message() != ""){
+            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
         }else{
             return "1";
         }
@@ -227,8 +227,8 @@ class check_in_model extends CI_Model{
         $sql = "UPDATE check_in SET visitor='".$this->input->post('value')."' WHERE id=".$this->input->post('pk');
 		$query = $this->db->query($sql);
 
-        if($this->db->_error_message != ""){
-            return $this->db->_error_message;
+        if($this->db->_error_message() != ""){
+            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
         }else{
             return "1";
         }
