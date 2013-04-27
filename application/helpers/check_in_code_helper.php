@@ -6,7 +6,7 @@ if(!function_exists('check_in_code')){
          * The id is based on the check in auto increment id of the last check in + 1
          * and is padded left with 0's to make 4 digits if less than 4 digits
          * or we use substr to trim to four digits if the id is greater than 4 digits
-         * we trim from the begenning so that we dont have repeating codes, ex. id=1111283 would return 1111 and so would id=1111284 etc.
+         * we trim from the begenning so that we dont have repeating codes on the same day, ex. id=1111283 would return 1111 and so would id=1111284 etc.
         */
         $ci =& get_instance();
         $data = $ci->db->query('SELECT id FROM check_in ORDER BY id DESC LIMIT 0,1');
