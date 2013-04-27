@@ -1,5 +1,5 @@
 <form action="<?php print base_url();?>contacts/contact_save" id="contact-add-form" class="" method="post" accept-charset="utf-8">
-    <input type="hidden" name="from_check_in" value="<?php print $this->input->get('visitor');?>" id="from-check-in" />
+    <input type="hidden" name="visitor" value="<?php print $this->input->get('visitor');?>" id="visitor" />
 
     <legend>Contact Info</legend>
     <fieldset>
@@ -85,6 +85,8 @@
 
 <script>
     $(document).ready(function(){
+        $('#fname').focus();
+
         var elements = {
             state: $('#state'),
             city: $('#city'),
