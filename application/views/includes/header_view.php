@@ -74,7 +74,7 @@
 		}
 
 		if($this->session->flashdata('notification') != ""){?>
-            <div class="alert alert">
+            <div class="alert notification">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
 			    <?php print $this->session->flashdata('notification');?>
             </div>
