@@ -52,7 +52,7 @@
                             </td>
 
                             <td>
-                                <a href="#" id="check-in-offering-<?php print $check_in['id'];?>" data-type="text" data-pk="<?php print $check_in['id'];?>" class="check-in-offering"><?php print $check_in['offering'];?></a>
+                                <a href="#" id="check-in-offering-<?php print $check_in['id'];?>" data-type="text" data-pk="<?php print $check_in['id'];?>" class="check-in-offering"><?php if($check_in['offering'] > 0)print $check_in['offering'];?></a>
                             </td>
 
 							<td>
@@ -151,7 +151,8 @@
                                  line_item += "<td>"+check_in_data.check_in_time+"</td>";
                                  line_item += '<td><a href="#" id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+check_in_data.class_id+'"></a></td>';
                                  line_item += "<td>"+check_in_data.check_in_code+"</td>";
-                                 line_item += '<td><a href="#" id="check-in-visitor-link-'+check_in_id+' class="check-in-visitor-link" data-type="select" data-pk="'+check_in_id+'" data-value="No">No</a></td>';
+                                 line_item += '<td><a href="#" id="check-in-visitor-link-'+check_in_id+'" class="check-in-visitor-link" data-type="select" data-pk="'+check_in_id+'" data-value="0">No</a></td>';
+                                 console.log(line_item);
                                  line_item += '<td><a href="#" id="check-in-offering-'+check_in_id+'" data-type="text" data-pk="'+check_in_id+'" class="check-in-offering"></a></td>';
                                  line_item += '<td><a href="#" id="contact-note-'+contact_id+'" data-type="textarea" data-pk="'+contact_id+'" class="contact-note">'+check_in_data.notes+'</a></td>';
                                  line_item += "<td><a href='#' class='del-line-item' data-id='"+check_in_id+"' id='check-in-delete-"+check_in_id+"'><i class='icon-trash''></i></a></td></tr>";
