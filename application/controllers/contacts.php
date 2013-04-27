@@ -35,13 +35,13 @@ class contacts extends CI_Controller{
         $contact_id = $this->contacts_model->contact_save();
         
         if($contact_id > 0){
-            $this->session->set_flashdata('notification', 'Record saved.');
-            // if($this->input->get('visitor') == "1)"){
-            //     redirect(base_url()."check_in");
-            // }else{
-            //     
-            // }
-            redirect(base_url()."contacts");
+            if($this->input->post('visitor') == "1"){
+                $this->session->set_flashdata('notification', 'Visitor saved.');
+                redirect(base_url()."check_in");
+            }else{
+                $this->session->set_flashdata('notification', 'Record saved.');
+                redirect(base_url()."contacts");   
+            }
         }else{
             $this->session->set_flashdata('notification', 'Record could not be be deleted.');
             redirect(base_url()."contacts/contact_edit");
