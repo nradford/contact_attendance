@@ -1,16 +1,10 @@
 <form action="<?php print base_url();?>check_out" id="check-out-form" method="post">
-    <div class="pull-left">
-        <h3>Checked In</h3>
-    </div>
-
     <div class="row-fluid">
+        <div class="pull-left"><h3>Checked In</h3></div>
+
         <div class="pull-right" id="data-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
             <a href="#" id="check-out-date-link" data-type="combodate" data-value="<?php print $check_date;?>" data-format="YYYY-MM-DD" data-viewformat="ddd, MMMM Do YYYY" data-template="MMM / D / YYYY"><?php print date("D, F j Y", strtotime($check_date));?></a>
-        </div>
-
-        <div class="pull-left">
-            <!-- <input type="text" id="contacts-search" class="inputf" placeholder="Search" /> -->
         </div>
     </div><!-- row-fluid -->
 
@@ -156,12 +150,12 @@
                 success: function(data){
                 	if(data.check_out_id > 0){
                         num_check_ins = num_check_ins - 1;
-                        console.log(num_check_ins);
+
                         if(num_check_ins == 0){//if this is the last check-in
                             //remove the table and replace with a messge the there are no more check-ins
                             $("#check-in-table").fadeOut(300, function(){
                                 console.log($(this).prev('h3'));
-                                $(this).prev('h3').after('<p class="alert">No More Check-Ins.</p>');
+                                $('h3:first').parent().parent().after('<p class="alert">Everyone has been checked out for today!</p>');
                             });
                         }else{
                             $('#check-out-'+data.check_out_id).fadeOut(300, function(){
