@@ -22,6 +22,7 @@ class check_in_model extends CI_Model{
          * 
          *Lookup contact_id, name
         */
+        $results = array();
         $term = urldecode($this->input->get('term'));
         $limit = 10;
         if($this->input->get('limit') > 0)$limit = $this->input->get('limit');
@@ -51,7 +52,7 @@ class check_in_model extends CI_Model{
         $sql = "SELECT notes, ";
         $sql .= "DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birthdate, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birthdate, '00-%m-%d')) AS age, ";
         $sql .= "(SELECT `id` FROM `classes` WHERE age BETWEEN age_min AND age_max) AS class_id ";
-        $sql .= "FROM contacts WHERE id=".$contact_id;
+        $sql .= "FROM contacts WHERE id='".$contact_id."'";
         $data = $this->db->query($sql);
         if($data->num_rows() > 0)$check_in_data = $data->row_array();
         
@@ -62,6 +63,7 @@ class check_in_model extends CI_Model{
         $sql2 = "INSERT INTO check_in (contact_id, check_date, checked_in, class_id, check_in_code) VALUES ($contact_id, '$check_date', '$checked_in_time', '$class_id', '$check_in_code');";
         $this->db->query($sql2);
         $check_in_id = $this->db->insert_id();
+
         if($check_in_id > 0){
             $return_data = array(
                 'check_in_id' => $check_in_id,
@@ -134,6 +136,7 @@ class check_in_model extends CI_Model{
          * 
          *Lookup teacher_id and name
         */
+        $results = array();
         $term = urldecode($this->input->get('term'));
         $limit = 10;
         if($this->input->get('limit') > 0)$limit = $this->input->get('limit');
@@ -210,13 +213,20 @@ class check_in_model extends CI_Model{
      * Offering methods
     */
     public function offering_update(){
-        $sql = "UPDATE check_in SET offering='".$this->input->post('value')."' WHERE id=".$this->input->post('pk');
-		$query = $this->db->query($sql);
+        $offering = str_replace(array("$", ","), "", $this->input->post('value'));
+        $offering = number_format($offering, "2", ".", "");
+        
+        if(is_numeric($offering)){
+            $sql = "UPDATE check_in SET offering='".$offering."' WHERE id=".$this->input->post('pk');
+    		$query = $this->db->query($sql);
 
-        if($this->db->_error_message() != ""){
-            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
+            if($this->db->_error_message() != ""){
+                redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
+            }else{
+                return 1;
+            }            
         }else{
-            return "1";
+            return 1;
         }
     }
 
