@@ -68,7 +68,7 @@
 	$(document).ready(function(){
         $('.footable').footable();
         
-		$('#contacts-list-tbl tbody tr').on('click', "td", function(){
+		$('#contacts-list-tbl').on('click', "tbody tr td", function(){
             $$this = $(this);
 
             if($$this.hasClass('expand') && $$this.css('background-image') != "none"){//allow click on the expand cells to expand them and not go the edit page
