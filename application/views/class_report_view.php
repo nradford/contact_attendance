@@ -40,13 +40,9 @@
                                 <input type="hidden" name="check_in_id_<?php print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
                             </td>
 
-                            <td>
-                                <?print $check_out_time;?>
-                            </td>
+                            <td><?print $check_out_time;?></td>
                                 
-                            <td>
-                                <?php print $check_in['class_name'];?>
-                            </td>
+                            <td><?php print $check_in['class_name'];?></td>
 
                             <td>
                                 <?php
@@ -61,13 +57,13 @@
                                 }?>
                             </td>
 
-                            <td>
-                                $<?print $check_in['offering'];?>
-                            </td>
+                            <td>$<?print $check_in['offering'];?></td>
 						</tr><?
 					}
 					$cnt++;
-				}?>
+				}else{?>
+                    <tr><td colspan="3" class="alert">No check-ins found.</td></tr><?php
+                }?>
 			</tbody>
             
             <tfoot>
@@ -85,8 +81,43 @@
 
     <div class="row-fluid">
         <div class="span12">
+            <h3>Teachers</h3>
+            <table id="check-in-teachers-table" class="table table-striped table-bordered table-condensed footable">
+            	<thead>
+            	<tr>
+            		<th class="check-in-name" data-class="expand">Name</th>
+            		<th class="check-in-time">Checked In</th>
+                    <th class="check-in-class" data-hide="phone">Class</th>
+            	</tr>
+            	</thead>
+
+            	<tbody><?php
+            		if(sizeof($teacher_check_ins) > 0){
+            			foreach($teacher_check_ins as $teacher_check_in){
+                            $teacher_check_in_time = "";
+            				if($teacher_check_in['checked_in'] != "")$teacher_check_in_time = date("g:i a", strtotime($teacher_check_in['checked_in']));?>
+            				<tr id='check-in-<?print $teacher_check_in['id'];?>'>
+            					<td><?php print $teacher_check_in['fname']." ".$teacher_check_in['lname'];?></td>
+            					<td>
+            						<?print $teacher_check_in_time;?>
+            						<input type="hidden" name="check_in_id_<?php print $cnt;?>" value="<?print $teacher_check_in['id'];?>" id="check-in-id-<?print $teacher_check_in['id'];?>" />
+            					</td>
+                                <td><?php print $teacher_check_in['class_name'];?></td>
+                            </tr><?php
+                        }
+            		}else{?>
+            		    <tr><td colspan="3" class="alert">No teacher check-ins found.</td></tr><?php
+            		}?>
+            	</tbody>
+            </table>  
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
             <h3>Incident Report</h3>
-            <textarea id="incident-report-textarea"><?php print $incident_report['report'];?></textarea>
+            <input type="hidden" name="incident_id" value="<?php print $incident_report['id'];?>" id="incident-id" />
+            <textarea id="incident-report-textarea" name="incident_report"><?php print $incident_report['report'];?></textarea>
             <!-- <div id="incident-report-textarea" contenteditable><?php print $incident_report['report'];?></div> -->
 
             <!-- <a href="#" id="pencil"><i class="icon-pencil"></i> [edit]</a>
@@ -96,6 +127,11 @@
         </div>
     </div><!-- row-fluid -->
     
+    <div class="row-fluid">
+        <div class="span12">
+            <input type="button" name="save_class_report" value="Save &amp; Submit Class Report" id="save-class-report" class="btn btn-large btn-primary" />
+        </div>
+    </div><!-- row-fluid -->
 </form>
 
 <script>
@@ -148,6 +184,10 @@
                     }
                 });
             }
+        });
+        
+        $('#save-class-report').click(function(){
+            $('#class-report-form').attr('action', '<?php print base_url();?>class_report/class_report_save').submit();
         });
 
 	});//end document.ready

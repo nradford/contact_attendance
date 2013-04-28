@@ -38,4 +38,22 @@ class class_report_model extends CI_Model{
         if($data->num_rows() > 0)$report = $data->row_array();
         return $report;
     }
+
+    public function class_report_save(){
+        $success = 0;
+        $data = array(
+            "report" => htmlspecialchars($this->input->post('incident_report')),
+            "check_date" => $this->input->post('class_date')
+        );
+        if($this->input->post('incident_id') > 0){//if updating
+            $this->db->where("id", $this->input->post('incident_id'));
+            $this->db->update("incident_reports", $data);
+            if($this->db->_error_message() == "")$success = 1;
+        }else{//if new
+            $this->db->insert("incident_reports", $data);
+            if($this->db->_error_message() == "")$success = 1;
+        }
+
+        return $success;
+    }
 }
