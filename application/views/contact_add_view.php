@@ -56,7 +56,7 @@
             <select name="state" id="state">
             	<option value="">Select a State</option>
             	<?php foreach($this->config->item('states') as $key => $value){?>
-            		<option value="<?php print $value;?>"<?php if($contact["state"]==$key)print " selected";?>><?php print $value;?></option><?php 
+            		<option value="<?php print $value;?>"<?php if($contact["state"]==$value)print " selected";?>><?php print $value;?></option><?php 
                 }?>
             </select>
 
