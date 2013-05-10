@@ -16,7 +16,7 @@ $config['states'] = array('AL'=>"Alabama", 'AK'=>"Alaska", 'AZ'=>"Arizona", 'AR'
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://dev-ca.com/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
