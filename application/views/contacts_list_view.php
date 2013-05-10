@@ -26,7 +26,7 @@
                         <th id="zip" data-hide="phone,tablet">Zip</th> -->
 						<th id="school" data-hide="phone,tablet">School</th>
 						<th id="bd" data-hide="phone,tablet">Birthday</th>
-						<th id="status" data-hide="phone,tablet">Status</th>
+                        <!-- <th id="status" data-hide="phone,tablet">Status</th> -->
 					</tr>
 				</thead>
 				<tbody><?php
@@ -48,6 +48,7 @@
                         <td><?php print $contact['zip'];?></td> -->
     					<td><?php print $contact['school'];?></td>
     					<td><?php print $print_bd;?></td>
+                        <!--
     					<td><?php 
                             if($contact['status'] == 1){
                                 print "Active";
@@ -55,6 +56,7 @@
                                 print "Inactive";
                             }?>
                         </td>
+                        -->
 					</tr><?php
 				}?>	
 				</tbody>
