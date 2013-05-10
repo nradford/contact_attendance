@@ -40,7 +40,7 @@ class contacts_model extends CI_Model{
 
         $contact_data['birthdate'] = $bd;
         $contact_data['email'] = $this->input->post('email');
-        $contact_data['mobile_phone'] = $this->input->post('mobile');
+        $contact_data['mobile_phone'] = $this->input->post('mobile_phone');
         $contact_data['home_phone'] = $this->input->post('home_phone');
         $contact_data['address'] = $this->input->post('address');
         $contact_data['address2'] = $this->input->post('address2');
