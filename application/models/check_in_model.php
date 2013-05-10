@@ -121,6 +121,7 @@ class check_in_model extends CI_Model{
      * Teacher check-in methods 
     */
 	public function check_ins_teachers_get($date){
+        $data = array();
         $sql = "SELECT t.id AS teacher_id, t.fname, t.lname, check_in_teachers.id, check_in_teachers.checked_in, classes.id AS class_id, classes.name AS class_name FROM teachers t ";
         $sql .= "LEFT JOIN check_in_teachers ON t.id=check_in_teachers.teacher_id ";
         $sql .= "LEFT JOIN classes ON check_in_teachers.class_id=classes.id ";
