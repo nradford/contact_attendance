@@ -1,11 +1,13 @@
 .DS_Store
-todo.md
-application/config/config.php
-application/config/database.php
+/application/config/config.php
+/application/config/database.php
 */config/development
 */logs/log-*.php
 */logs/!index.html
 */cache/*
 */cache/!index.html
+/build
+/intermediate
 /.DS_Store
 /todo.md
+/reports/
