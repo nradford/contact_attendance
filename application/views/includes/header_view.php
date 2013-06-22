@@ -27,7 +27,7 @@
     <script src="<?php print base_url();?>js/footable.filter.js"></script>
     <script src="<?php print base_url();?>js/jquery.ziptastic.js"></script>    
     <!-- //-end- concat_js -->
-    
+
     <?php
     //Add sorting for specific pages
     if($this->uri->segment(1) == "reports" || $this->uri->segment(1) == "contacts" || $this->uri->segment(1) == "teachers"){?>
@@ -36,37 +36,36 @@
 </head>
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
-            <!-- <a class="brand" href="#">Check-In/Out</a> -->
-            <?php
-            if($this->session->userdata('account_id') > 0){?>
-                <ul class="nav">
-                    <li<?php if($this->uri->segment(1) == "check_in" && $this->uri->segment(2) == "")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
-                    <li<?php if($this->uri->segment(2) == "check_in_teachers")print ' class="active"';?>><a href="<?php print base_url();?>check_in/check_in_teachers">Check-In Teachers</a></li>
-                    <li<?php if($this->uri->segment(1) == "check_out")print ' class="active"';?>><a href="<?php print base_url();?>check_out">Check-Out</a></li>
-                </ul>
-
-                <div class="nav-collapse collapse">
+<?php
+if($this->session->userdata('account_id') > 0){?>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <!-- <a class="brand" href="#">Check-In/Out</a> -->
                     <ul class="nav">
-                        <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
-                        <li<?php if($this->uri->segment(1) == "contacts")print ' class=""';?>><a href="<?php print base_url();?>contacts/contact_add/?visitor=1">Visitor</a></li>
-                        <li<?php if($this->uri->segment(1) == "teachers")print ' class="active"';?>><a href="<?php print base_url();?>teachers">Teachers</a></li>
-                        <li<?php if($this->uri->segment(1) == "class_report")print ' class="active"';?>><a href="<?php print base_url();?>class_report">Class Report</a></li>
-                        <!-- <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li> -->
+                        <li<?php if($this->uri->segment(1) == "check_in" && $this->uri->segment(2) == "")print ' class="active"';?>><a href="<?php print base_url();?>">Check-In</a></li>
+                        <li<?php if($this->uri->segment(2) == "check_in_teachers")print ' class="active"';?>><a href="<?php print base_url();?>check_in/check_in_teachers">Check-In Teachers</a></li>
+                        <li<?php if($this->uri->segment(1) == "check_out")print ' class="active"';?>><a href="<?php print base_url();?>check_out">Check-Out</a></li>
                     </ul>
 
-                    <ul class="nav pull-right"><li><a href="<?php print base_url();?>login/logout" class="">Log Out</a></li></ul>
-                </div><!-- .nav-collapse -->
-                <?php
-            }?>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
+                            <li<?php if($this->uri->segment(1) == "contacts")print ' class=""';?>><a href="<?php print base_url();?>contacts/contact_add/?visitor=1">Visitor</a></li>
+                            <li<?php if($this->uri->segment(1) == "teachers")print ' class="active"';?>><a href="<?php print base_url();?>teachers">Teachers</a></li>
+                            <li<?php if($this->uri->segment(1) == "class_report")print ' class="active"';?>><a href="<?php print base_url();?>class_report">Class Report</a></li>
+                            <!-- <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li> -->
+                        </ul>
+
+                        <ul class="nav pull-right"><li><a href="<?php print base_url();?>login/logout" class="">Log Out</a></li></ul>
+                    </div><!-- .nav-collapse -->
+            </div>
         </div>
-    </div>
-</div>
+    </div><?php
+}?>
 
 <div class="container-fluid"><?php
 		if($this->session->flashdata('error') != ""){?>
