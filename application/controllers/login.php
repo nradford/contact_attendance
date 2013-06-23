@@ -41,7 +41,8 @@ class Login extends CI_Controller{
 		}else{// incorrect email or password
 			$this->session->set_flashdata('email', $this->input->post('email'));
 			$this->session->set_flashdata('error', 'Incorrect email or password');
-            $this->index();
+
+            redirect(base_url());
 		}
 	}
 
