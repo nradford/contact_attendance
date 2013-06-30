@@ -29,13 +29,21 @@ class contacts_model extends CI_Model{
         $contact_data['lname'] = $this->input->post('lname');
         $contact_data['fname'] = $this->input->post('fname');
 
-        $bd = "";
-        if($this->input->post('birthdate') != ""){
-            //convert birthdate to yyyy-mm-dd for storing in the db
-            $bd = $this->input->post('birthdate');
-            $bd_parts = explode("/", $bd);
-            $bd = $bd_parts[2]."/".$bd_parts[0]."/".$bd_parts[1];
-            $bd = date("Y-m-d", strtotime($bd));
+        // $bd = "";
+        // if($this->input->post('birthdate') != ""){
+        //     //convert birthdate to yyyy-mm-dd for storing in the db
+        //     $bd = $this->input->post('birthdate');
+        //     $bd_parts = explode("/", $bd);
+        //     $bd = $bd_parts[2]."/".$bd_parts[0]."/".$bd_parts[1];
+        //     $bd = date("Y-m-d", strtotime($bd));
+        // }
+
+        if(strtotime($this->input->post('birthdate')) != ""){
+            if(strtotime($this->input->post('birthdate')) === false){
+                $bd = "";
+            }else{
+                $bd = date("Y-m-d", strtotime($this->input->post('birthdate')));
+            }
         }
 
         $contact_data['birthdate'] = $bd;
