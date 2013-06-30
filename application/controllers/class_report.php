@@ -33,6 +33,6 @@ class class_report extends CI_Controller{
         }else{
             $this->session->set_flashdata('error', 'Class Report could not be saved.');
         }
-        redirect(base_url()."class_report/?date=".$this->input->post('class_date'));
+        redirect(base_url()."class_report/?class_date=".$this->input->post('class_date'));
     }
 }

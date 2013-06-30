@@ -13,14 +13,14 @@
     <div class="row-fluid">
 		<table id="class-report-check-in-table" class="table table-striped table-bordered table-condensed footable">
 			<thead>
-			<tr>
-				<th class="check-in-name" data-class="expand">Name</th>
-				<th class="check-in-time">Checked In</th>
-				<th class="check-in-time">Checked Out</th>
-                <th class="check-in-class" data-hide="phone">Class</th>
-                <th class="check-in-visitor" data-hide="phone">Visitor</th>
-                <th class="check-in-offering" data-hide="phone">Offering</th>
-			</tr>
+    			<tr>
+    				<th class="check-in-name" data-class="expand">Name</th>
+    				<th class="check-in-time">Checked In</th>
+    				<th class="check-in-time">Checked Out</th>
+                    <th class="check-in-class" data-hide="phone">Class</th>
+                    <th class="check-in-visitor" data-hide="phone">Visitor</th>
+                    <th class="check-in-offering" data-hide="phone">Offering</th>
+    			</tr>
 			</thead>
 
 			<tbody><?php
@@ -117,7 +117,13 @@
         <div class="span12">
             <h3>Incident Report</h3>
             <input type="hidden" name="incident_id" value="<?php print $incident_report['id'];?>" id="incident-id" />
-            <textarea id="incident-report-textarea" name="incident_report"><?php print $incident_report['report'];?></textarea>
+            <?php
+            if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
+                <textarea id="incident-report-textarea" name="incident_report"><?php print $incident_report['report'];?></textarea><?
+            }else{
+                print "<p>".$incident_report['report']."</p>";
+            }?>
+
             <!-- <div id="incident-report-textarea" contenteditable><?php print $incident_report['report'];?></div> -->
 
             <!-- <a href="#" id="pencil"><i class="icon-pencil"></i> [edit]</a>
@@ -127,11 +133,15 @@
         </div>
     </div><!-- row-fluid -->
     
-    <div class="row-fluid">
-        <div class="span12">
-            <input type="button" name="save_class_report" value="Save &amp; Submit Class Report" id="save-class-report" class="btn btn-large btn-primary" />
-        </div>
-    </div><!-- row-fluid -->
+    <?php
+    if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
+        <div class="row-fluid">
+            <div class="span12">
+                <input type="button" name="save_class_report" value="Save &amp; Submit Class Report" id="save-class-report" class="btn btn-large btn-primary" />
+            </div>
+        </div><!-- row-fluid -->
+        <?php    
+        }?>
 </form>
 
 <script>
