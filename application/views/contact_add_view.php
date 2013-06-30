@@ -11,18 +11,25 @@
 
     		<label for="lname">Last Name:</label>
     		<input type="text" value="<?php print $contact['lname'];?>" name="lname" id="lname" />
-    		
+
     		<label for="date">Birthday:</label>
     		<?php
             $bd = "";
-            if(strtotime($contact['birthdate'])){
-               $bd = date("n/j/Y", strtotime($contact['birthdate']));
+            if($contact['birthdate'] != "0000-00-00"){
+                if(strtotime($contact['birthdate']) === false){
+                    $bd = "";               
+                }else{
+                    $bd = date("Y-m-d", strtotime($contact['birthdate']));
+                }
             }?>
-                
-            <div class="input-append date" id="birthdate" data-date="<?php print $bd;?>">
+
+            <!-- <div class="input-append date" id="birthdate" data-date="<?php print $bd;?>">
                 <input class="span2" type="text" name="birthdate" value="<?php print $bd;?>">
                 <span class="add-on"><i class="icon-th"></i></span>
-            </div>
+            </div> -->
+
+    		<input type="text" value="<?php print $bd;?>" name="birthdate" id="birthdate" />
+
             
             <!-- <input type="date" name="birthdate" id="birthdate" value="<?php print $bd;?>" autocomplete="off" /> -->
     		
@@ -77,13 +84,14 @@
                 if($contact['id'] > 0){?>
                     <a href="<?php print base_url();?>contacts/contact_delete" id="contact-delete-btn" class="btn btn-large btn-primary">Delete</a><?php
                 }?>
-                <button type="submit" class="btn btn-large btn-primary">Save Info</button>
+                <button type="button" id="save-contact-btn" class="btn btn-large btn-primary">Save Info</button>
             <p/>
         </div><!-- .span6 -->
     </fieldset>
 </form>
 
 <script>
+    "use strict";
     $(document).ready(function(){
         $('#fname').focus();
 
@@ -99,8 +107,16 @@
             elements.city.val(city);
         });
         
-        $('#birthdate').datepicker({
-            format: "m/d/yyyy"
+        // $('#birthdate').datepicker({
+        //     format: "m/d/yyyy"
+        // });
+        
+        $('#birthdate').combodate({
+            format: "YYYY-MM-DD",
+            template: "MMMM D YYYY",
+            minYear: "<?php print date('Y') - 13;?>",
+            maxYear: "<?php print date('Y');?>",
+            errorClass: "error"
         });
         
 		$("#contact-delete-btn").click(function(e){
@@ -110,5 +126,43 @@
                 $('#contact-add-form').attr('action', '<?php print base_url();?>contacts/contact_delete').submit();
             }
         });
+
+        $('#save-contact-btn').click(function(){
+            check_date();
+        });
+        
+        $('.month, .day, .year').change(function(){
+            var month = $('.month').val();
+            if(month != "")month = (month * 1) + 1;
+            var day = $('.day').val();
+            var year = $('.year').val();
+
+            if(moment(year+"-"+month+"-"+day, 'YYYY-MM-DD').isValid() || (month == "" && day == "" && year == "")){
+                $('.month, .day, .year').removeClass('error').focus();
+            }else{
+                $('.month, .day, .year').addClass('error').focus();
+            }
+        });
     });//end document.ready
+
+    function check_date(){
+        /**
+         * When submitting the form, check to see if birthdate is valid.
+         * If the date is not valid add an error class to it and prevent the form from being submitted.
+        */
+        // var $$this = jQuery('span.combodate');
+
+        //find the date values
+        var month = $('.month').val();
+        if(month != "")month = (month * 1) + 1;
+        var day = $('.day').val();
+        var year = $('.year').val();
+
+        if(moment(year+"-"+month+"-"+day, 'YYYY-MM-DD').isValid() || (month == "" && day == "" && year == "")){
+            jQuery('#contact-add-form').submit();
+        }else{
+            // $$this.find('select').removeClass('error');
+            $('.month, .day, .year').addClass('error').focus();
+        }
+    }
 </script>

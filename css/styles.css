@@ -68,6 +68,8 @@
     padding: 8px;
 }
 
+select.error{border-color: #cd0a0a;}
+
 /**
  * Bootstrap overrides
 */

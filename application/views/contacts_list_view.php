@@ -25,38 +25,32 @@
                         <!-- <th id="state" data-hide="phone,tablet">State</th>
                         <th id="zip" data-hide="phone,tablet">Zip</th> -->
 						<th id="school" data-hide="phone,tablet">School</th>
-						<th id="bd" data-hide="phone,tablet">Birthday</th>
+						<th id="bd" data-type="numeric" data-hide="phone,tablet">Birthday</th>
                         <!-- <th id="status" data-hide="phone,tablet">Status</th> -->
 					</tr>
 				</thead>
 				<tbody><?php
 				$i=0;
 				foreach($contacts as $contact){
-					$print_bd="";
-					if($contact['birthdate'] != "")$print_bd=date("n/j/Y", strtotime($contact['birthdate']));?>
-						
+
+					if($contact['birthdate'] != "0000-00-00"){
+                        if(strtotime($contact['birthdate']) === false){
+                            $print_bd = "";
+                            $sort_bd = 0;
+                        }else{
+                            $print_bd=date("n/j/Y", strtotime($contact['birthdate']));
+                            $sort_bd = strtotime($contact['birthdate']);//added as data-value attribute for proper sorting
+                        }
+					}?>
+
 					<tr id="contact-<?php print $contact['id'];?>" data-id="<?php print $contact['id'];?>">
     					<td><?php print $contact['fname'];?></td>
     					<td><?php print $contact['lname'];?></td>
-                        <!-- <td><?php print $contact['email'];?></td> -->
     					<td><?php print $contact['mobile_phone'];?></td>
     					<td><?php print $contact['home_phone'];?></td>
-                        <!-- <td><?php print $contact['address'];?></td>
-                        <td><?php print $contact['address2'];?></td> -->
     					<td><?php print $contact['city'];?></td>
-                        <!-- <td><?php print $contact['state'];?></td>
-                        <td><?php print $contact['zip'];?></td> -->
     					<td><?php print $contact['school'];?></td>
-    					<td><?php print $print_bd;?></td>
-                        <!--
-    					<td><?php 
-                            if($contact['status'] == 1){
-                                print "Active";
-                            }else{
-                                print "Inactive";
-                            }?>
-                        </td>
-                        -->
+    					<td data-type="numeric" data-value="<?php print $sort_bd;?>"><?php print $print_bd;?></td>
 					</tr><?php
 				}?>	
 				</tbody>
