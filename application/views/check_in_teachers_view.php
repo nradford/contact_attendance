@@ -1,4 +1,4 @@
-<form action="<?php print base_url();?>check_in" id="check-in-teacher-form" method="post">
+<form action="<?php print base_url();?>check_in/check_in_teachers" id="check-in-teacher-form" method="post">
     <div class="row-fluid">
         <div class="pull-right" id="data-date">
             <input type="hidden" name="check_date" value="<?php print $check_date;?>" id="check-date" />
@@ -34,7 +34,7 @@
 								<?print $check_in_time;?>
 								<input type="hidden" name="check_in_id_<?php print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
 							</td>
-                                
+
                             <td>
                                 <a href="#" id="check-in-class-link-<?php print $check_in['id'];?>" class="check-in-class-link" data-type="select" data-pk="<?php print $check_in['id'];?>" data-value="<?php print $check_in['class_id'];?>"></a>
                             </td>
@@ -62,7 +62,6 @@
             }
         });
 
-        
         // $.fn.editable.defaults.mode = 'popover';
         $.fn.editable.defaults.placement = 'bottom';
 
@@ -71,7 +70,7 @@
             if(settings.url == "<?php print base_url();?>check_in/date_change"){
                 //update the check-in date hidden input and post the form back to itself to load the check-in page for the new date
                 $('#check-date').val(xhr.responseText);
-                $('#check-in-form').submit();
+                $('#check-in-teacher-form').submit();
             }
         });
 
