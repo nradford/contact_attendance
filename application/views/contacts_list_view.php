@@ -15,7 +15,7 @@
 				<thead>
 					<tr>
 						<th id="fname" data-class="expand">First Name</th>
-						<th id="last">Last Name</th>
+						<th id="lname">Last Name</th>
                         <!-- <th id="email" data-hide="phone">E-mail</th> -->
 						<th id="mobile" data-hide="phone">Mobile Phone</th>
 						<th id="home" data-hide="phone">Home Phone</th>
