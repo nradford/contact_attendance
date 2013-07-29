@@ -14,10 +14,13 @@ class contacts_model extends CI_Model{
 	}
 
     public function contact_get(){
-        $sql = "SELECT * FROM contacts WHERE id = ".$this->input->post('contact_id');
-		$query = $this->db->query($sql);
+        $data = array();
+        if($this->input->post('contact_id') > 0){
+            $sql = "SELECT * FROM contacts WHERE id = ".$this->input->post('contact_id');
+    		$query = $this->db->query($sql);
 
-		if($query->num_rows() > 0)$data = $query->row_array();
+    		if($query->num_rows() > 0)$data = $query->row_array();
+        }
 
 		return $data;        
     }
@@ -38,9 +41,10 @@ class contacts_model extends CI_Model{
         //     $bd = date("Y-m-d", strtotime($bd));
         // }
 
+        $bd = "0000-00-00";
         if(strtotime($this->input->post('birthdate')) != ""){
             if(strtotime($this->input->post('birthdate')) === false){
-                $bd = "";
+                $bd = "0000-00-00";
             }else{
                 $bd = date("Y-m-d", strtotime($this->input->post('birthdate')));
             }
@@ -66,6 +70,7 @@ class contacts_model extends CI_Model{
             $this->db->update('contacts', $contact_data);
             if($this->db->_error_message() != "")$contact_id = $this->db->_error_message();
         }
+
         return $contact_id;
     }
 
