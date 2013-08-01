@@ -11,3 +11,4 @@
 /.DS_Store
 /todo.md
 /reports/
+/application/config/email.php
