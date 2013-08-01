@@ -1,7 +1,7 @@
 .DS_Store
 /application/config/config.php
 /application/config/database.php
-*/config/development
+/application/config/email.php*/config/development
 */logs/log-*.php
 */logs/!index.html
 */cache/*
@@ -11,4 +11,3 @@
 /.DS_Store
 /todo.md
 /reports/
-/application/config/email.php
