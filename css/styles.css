@@ -55,7 +55,7 @@
 
 /*#contacts-list-tbl{margin-top: 15px;}*/
 
-#contacts-list-tbl tr{cursor: pointer;}
+#contacts-list-tbl tr, #teachers-list-tbl tr, #classes-list-tbl tr{cursor: pointer;}
 
 #button-row{margin: 20px 0 0 0;}
 
