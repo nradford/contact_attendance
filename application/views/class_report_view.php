@@ -116,6 +116,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3>Class Summary</h3>
+            <small>Briefly outline today's lesson and activities.</small><br />
             <input type="hidden" name="class_report_id" value="<?php print $class_report['id'];?>" id="class-report-id" />
             <?php
             if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
