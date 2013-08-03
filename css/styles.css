@@ -61,7 +61,7 @@
 
 #button-row button{margin: 5px 0;}
 
-#incident-report-textarea{
+#incident-textarea, #summary-textarea{
     width: 100%;
     max-width: 600px;
     height: 250px;

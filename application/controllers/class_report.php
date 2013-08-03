@@ -16,7 +16,7 @@ class class_report extends CI_Controller{
 
         $data['check_ins'] = $this->class_report_model->check_ins_get($data['class_date']);
         $data['totals'] = $this->class_report_model->class_report_totals($data['class_date']);
-        $data['incident_report'] = $this->class_report_model->incident_report_get($data['class_date']);
+        $data['class_report'] = $this->class_report_model->class_report_get($data['class_date']);
         $data['teacher_check_ins'] = $this->check_in_model->check_ins_teachers_get($data['class_date']);
         $data['classes'] = $this->check_in_model->classes_get();
 

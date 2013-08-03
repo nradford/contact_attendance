@@ -36,11 +36,11 @@
 						<tr id='check-in-<?print $check_in['id'];?>'>
 							<td><?php print $check_in['fname']." ".$check_in['lname'];?></td>
                             <td>
-                                <?print $check_in_time;?>
+                                <?php print $check_in_time;?>
                                 <input type="hidden" name="check_in_id_<?php print $cnt;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
                             </td>
 
-                            <td><?print $check_out_time;?></td>
+                            <td><?php print $check_out_time;?></td>
                                 
                             <td><?php print $check_in['class_name'];?></td>
 
@@ -115,13 +115,20 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <h3>Incident Report</h3>
-            <input type="hidden" name="incident_id" value="<?php print $incident_report['id'];?>" id="incident-id" />
+            <h3>Class Summary</h3>
+            <input type="hidden" name="class_report_id" value="<?php print $class_report['id'];?>" id="class-report-id" />
             <?php
             if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
-                <textarea id="incident-report-textarea" name="incident_report"><?php print $incident_report['report'];?></textarea><?
+                <textarea id="summary-textarea" name="summary"><?php print $class_report['summary'];?></textarea><?php
             }else{
-                print "<p>".$incident_report['report']."</p>";
+                print "<p>".$class_report['summary']."</p>";
+            }?>
+
+            <h3>Incident Report</h3><?php
+            if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
+                <textarea id="incident-textarea" name="incident"><?php print $class_report['incident'];?></textarea><?php
+            }else{
+                print "<p>".$class_report['incident']."</p>";
             }?>
 
             <!-- <div id="incident-report-textarea" contenteditable><?php print $incident_report['report'];?></div> -->

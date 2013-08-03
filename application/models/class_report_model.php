@@ -32,10 +32,10 @@ class class_report_model extends CI_Model{
 		return $data;
     }
 
-    public function incident_report_get($date){
-        $this->db->select("id, report");
+    public function class_report_get($date){
+        $this->db->select("id, incident, summary");
         $this->db->where("check_date", $date);
-        $data = $this->db->get('incident_reports', 1, 0);
+        $data = $this->db->get('class_reports', 1, 0);
         if($data->num_rows() > 0)$report = $data->row_array();
         return $report;
     }
@@ -43,21 +43,20 @@ class class_report_model extends CI_Model{
     public function class_report_save(){
         $success = 0;
         $data = array(
-            "report" => htmlspecialchars($this->input->post('incident_report')),
+            "incident" => htmlspecialchars($this->input->post('incident')),
+            "summary" => htmlspecialchars($this->input->post('summary')),
             "check_date" => $this->input->post('class_date')
         );
-        if($this->input->post('incident_id') > 0){//if updating
-            $this->db->where("id", $this->input->post('incident_id'));
-            $this->db->update("incident_reports", $data);
+        if($this->input->post('class_report_id') > 0){//if updating
+            $this->db->where("id", $this->input->post('class_report_id'));
+            $this->db->update("class_reports", $data);
             if($this->db->_error_message() == "")$success = 1;
         }else{//if new
-            $this->db->insert("incident_reports", $data);
+            $this->db->insert("class_reports", $data);
             if($this->db->_error_message() == "")$success = 1;
         }
 
-        /*
-            TODO generate pdf and attach it
-        */
+        /* generate pdf and attach it*/
         $report_name = "class-report-".date('Y-m-d');
         $url = $this->config->item('report_full_url')."?class_date=".$this->input->post('class_date');
         
@@ -87,8 +86,8 @@ class class_report_model extends CI_Model{
         //Send email notification
         $this->load->library('email');
         $this->email->from("no-reply@solidrockfamilychurch.org", 'Kidz Rock Check-In/Out System');
-        // $this->email->to("nickrradford@gmail.com"); 
-        $this->email->to("sarahradford@gmail.com"); 
+        $this->email->to("nickrradford@gmail.com"); 
+        // $this->email->to("sarahradford@gmail.com"); 
         $this->email->subject('Class Report for '.date('n/j/Y', strtotime($this->input->post('class_date'))));
         $this->email->attach($this->config->item('reports_path').$report_name.".pdf");
 
