@@ -56,6 +56,7 @@ if($this->session->userdata('account_id') > 0){?>
                             <li<?php if($this->uri->segment(1) == "contacts")print ' class="active"';?>><a href="<?php print base_url();?>contacts">Kids</a></li>
                             <li<?php if($this->uri->segment(1) == "contacts")print ' class=""';?>><a href="<?php print base_url();?>contacts/contact_add/?visitor=1">Visitor</a></li>
                             <li<?php if($this->uri->segment(1) == "teachers")print ' class="active"';?>><a href="<?php print base_url();?>teachers">Teachers</a></li>
+                            <li<?php if($this->uri->segment(1) == "classes")print ' class="active"';?>><a href="<?php print base_url();?>classes">Classes</a></li>
                             <li<?php if($this->uri->segment(1) == "class_report")print ' class="active"';?>><a href="<?php print base_url();?>class_report">Class Report</a></li>
                             <!-- <li<?php if($this->uri->segment(1) == "reports")print ' class="active"';?>><a href="<?php print base_url();?>reports">Reports</a></li> -->
                         </ul>

@@ -60,19 +60,6 @@ class teachers_model extends CI_Model{
         return $teacher_id;
     }
 
-    public function note_save(){
-        $id = $this->input->post('pk');
-        $note = $this->input->post('value');
-        
-        $this->db->query('UPDATE teachers SET notes="'.htmlspecialchars($note).'" WHERE id="'.$id.'"');
-
-        if($this->db->_error_message() != ""){
-            redirect(base_url()."AnyPageThatDoesntReturnStatusOf200");
-        }else{
-            return $id;
-        }
-    }
-
     public function teacher_delete(){
         $id = $this->input->post('teacher_id');
 

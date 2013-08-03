@@ -35,24 +35,12 @@ class teachers extends CI_Controller{
         $teacher_id = $this->teachers_model->teacher_save();
         
         if($teacher_id > 0){
-            if($this->input->post('visitor') == "1"){
-                $this->session->set_flashdata('notification', 'Visitor saved.');
-                redirect(base_url()."check_in");
-            }else{
-                $this->session->set_flashdata('notification', 'Record saved.');
-                redirect(base_url()."teachers");   
-            }
+            $this->session->set_flashdata('notification', 'Record saved.');
+            redirect(base_url()."teachers");   
         }else{
             $this->session->set_flashdata('notification', 'Record could not be be deleted.');
             redirect(base_url()."teachers/teacher_edit");
         }
-    }
-    
-    public function note_save(){
-        $this->load->model('teachers_model');
-        $teacher_id = $this->teachers_model->note_save();
-        
-        print $teacher_id;
     }
 
     public function teacher_delete(){
