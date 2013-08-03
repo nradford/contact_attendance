@@ -116,20 +116,20 @@
     <div class="row-fluid">
         <div class="span12">
             <h3>Class Summary</h3>
-            <small>Briefly outline today's lesson and activities.</small><br />
             <input type="hidden" name="class_report_id" value="<?php print $class_report['id'];?>" id="class-report-id" />
             <?php
             if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
+                <small>Briefly outline today's lesson and activities.</small><br />
                 <textarea id="summary-textarea" name="summary"><?php print $class_report['summary'];?></textarea><?php
             }else{
-                print "<p>".$class_report['summary']."</p>";
+                print "<p>".str_replace("\n", "<br />", htmlspecialchars_decode($class_report['summary']))."</p>";
             }?>
 
             <h3>Incident Report</h3><?php
             if($_SERVER['HTTP_USER_AGENT'] != "report-export-Jsbv36{8zDLXH7wo;WcFVVgNvhK6nAhn"){//custom formatting for the report?>
                 <textarea id="incident-textarea" name="incident"><?php print $class_report['incident'];?></textarea><?php
             }else{
-                print "<p>".$class_report['incident']."</p>";
+                print "<p>".str_replace("\n", "<br />", htmlspecialchars_decode($class_report['incident']))."</p>";
             }?>
 
             <!-- <div id="incident-report-textarea" contenteditable><?php print $incident_report['report'];?></div> -->
