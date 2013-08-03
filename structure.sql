@@ -7,7 +7,7 @@
 #
 # Host: 10.211.55.10 (MySQL 5.5.31-0ubuntu0.12.04.1)
 # Database: contact_attendance
-# Generation Time: 2013-07-29 18:42:20 +0000
+# Generation Time: 2013-08-03 20:18:13 +0000
 # ************************************************************
 
 
@@ -135,12 +135,13 @@ CREATE TABLE `contacts` (
 
 
 
-# Dump of table incident_reports
+# Dump of table class_reports
 # ------------------------------------------------------------
 
-CREATE TABLE `incident_reports` (
+CREATE TABLE `class_reports` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `report` longtext CHARACTER SET utf8 NOT NULL,
+  `incident` longtext CHARACTER SET utf8 NOT NULL,
+  `summary` longtext CHARACTER SET utf8 NOT NULL,
   `check_date` date NOT NULL COMMENT 'This is linked the the check_date fields from the check_in table',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
