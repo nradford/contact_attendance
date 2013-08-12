@@ -6,7 +6,7 @@
         </div>
 
     	<div class="pull-left">
-    		<input type="text" name="contacts_search" value="" id="contacts-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" />
+    		<input type="text" name="contacts_search" value="" id="contacts-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off"  autocomplete="off" />
     	</div>
     </div><!-- row-fluid -->
 
@@ -16,10 +16,10 @@
 			<tr>
 				<th class="check-in-name" data-class="expand">Name</th>
 				<th class="check-in-time">Checked In</th>
-                <th class="check-in-class" data-hide="phone">Class</th>
+                <th class="check-in-class">Class</th>
                 <th class="check-in-code">Check In Code</th>
-                <th class="check-in-visitor">Visitor</th>
-                <th class="check-in-offering">Offering</th>
+                <th class="check-in-visitor" data-hide="phone">Visitor</th>
+                <th class="check-in-offering" data-hide="phone">Offering</th>
 				<th class="check-in-note" data-hide="phone">Notes</th>
 				<th class="check-in-delete"></th>
 			</tr>

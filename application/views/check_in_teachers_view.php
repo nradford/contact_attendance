@@ -6,7 +6,7 @@
         </div>
 
     	<div class="pull-left">
-    		<input type="text" name="teachers_search" class="inputf" value="" id="teachers-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" />
+    		<input type="text" name="teachers_search" class="inputf" value="" id="teachers-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" autocomplete="off" />
     	</div>
     </div><!-- row-fluid -->
 
