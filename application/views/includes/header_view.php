@@ -17,7 +17,7 @@
     <!-- //-end- concat_css -->
 
 	<script src="<?print base_url();?>js/modernizr.custom.2.6.2.js"></script>
-    <script src="<?php print base_url()."js/jquery-2.0.2.min.js";?>"></script>
+    <script src="<?php print base_url()."js/jquery-2.0.3.min.js";?>"></script>
 
     <!-- //-beg- concat_js -->
     <script src="<?php print base_url();?>js/moment.min.js"></script>
