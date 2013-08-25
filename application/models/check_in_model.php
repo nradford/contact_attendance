@@ -51,7 +51,7 @@ class check_in_model extends CI_Model{
         */
         $sql = "SELECT notes, ";
         $sql .= "DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(birthdate, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(birthdate, '00-%m-%d')) AS age, ";
-        $sql .= "(SELECT `id` FROM `classes` WHERE age BETWEEN age_min AND age_max) AS class_id ";
+        $sql .= "(SELECT `id` FROM `classes` WHERE age BETWEEN age_min AND age_max ORDER BY id ASC LIMIT 0,1) AS class_id ";
         $sql .= "FROM contacts WHERE id='".$contact_id."'";
         $data = $this->db->query($sql);
         if($data->num_rows() > 0)$check_in_data = $data->row_array();
