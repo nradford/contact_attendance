@@ -61,6 +61,8 @@
 
 #button-row button{margin: 5px 0;}
 
+.report-total-label{display: inline-block; font-weight: bold; min-width: 95px;}
+
 #incident-textarea, #summary-textarea{
     width: 100%;
     max-width: 600px;
@@ -106,7 +108,6 @@ h2, h3, h4, h5, h6{
   font-size: 12px;
   font-family: sans-serif;
   color: #ccc;
-  .text-stroke(0);
 }
 
 [contenteditable]:hover, [contenteditable]:focus {
