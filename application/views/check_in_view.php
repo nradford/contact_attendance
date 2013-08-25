@@ -6,7 +6,7 @@
         </div>
 
     	<div class="pull-left">
-    		<input type="text" name="contacts_search" value="" id="contacts-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off"  autocomplete="off" />
+    		<input type="text" name="contacts_search" value="" id="contacts-search" placeholder="Enter a name to check-in" autocorrect="off" autocapitalize="off" autocomplete="off" />
     	</div>
     </div><!-- row-fluid -->
 
@@ -76,7 +76,7 @@
 
 <script>
 	$(document).ready(function(){
-        $('#contacts-search').focus().keydown(function(e){
+        $('#contacts-search').keydown(function(e){
             if(e.keyCode == 13){//prevent form from submiting when return/enter is pressed
                 e.preventDefault();
             }
@@ -99,7 +99,7 @@
             url: '<?php print base_url();?>check_in/date_change',
             send: 'always',
             combodate: {
-                minYear: '<?php print date("Y") - 5;?>',
+                minYear: '<?php print date("Y") - 10;?>',
                 maxYear: '<?php print date("Y") + 1;?>'
             }
         });
@@ -110,9 +110,10 @@
 
         $('#contacts-search').typeahead({
             minLength: 2,
+            items: 10,
             source: function (typeahead, process){
                 $.ajax({
-                    url: "<?php print base_url();?>check_in/contacts_search/?callback=options&limit=20&check_date=<?php print $check_date;?>",
+                    url: "<?php print base_url();?>check_in/contacts_search/?callback=options&limit=10&check_date=<?php print $check_date;?>",
                     type: 'get',
                     data: {term: typeahead},
                     dataType: 'json',
@@ -128,8 +129,8 @@
 
                         return process(contacts);//return name to be displayed as the typeahead results
                     },
-                    error: function(){
-                        alert("There was an error processing your request.\nPlease try again later.");
+                    error: function(xhr, ajaxOptions, thrownError){
+                        // console.log(xhr.status);
                     }
                 });
              },
@@ -152,7 +153,6 @@
                                  line_item += '<td><a href="#" id="check-in-class-link-"'+check_in_id+'" class="check-in-class-link" data-type="select" data-pk="'+check_in_id+'" data-value="'+check_in_data.class_id+'"></a></td>';
                                  line_item += "<td>"+check_in_data.check_in_code+"</td>";
                                  line_item += '<td><a href="#" id="check-in-visitor-link-'+check_in_id+'" class="check-in-visitor-link" data-type="select" data-pk="'+check_in_id+'" data-value="0">No</a></td>';
-                                 console.log(line_item);
                                  line_item += '<td><a href="#" id="check-in-offering-'+check_in_id+'" data-type="text" data-pk="'+check_in_id+'" class="check-in-offering"></a></td>';
                                  line_item += '<td><a href="#" id="contact-note-'+contact_id+'" data-type="textarea" data-pk="'+contact_id+'" class="contact-note">'+check_in_data.notes+'</a></td>';
                                  line_item += "<td><a href='#' class='del-line-item' data-id='"+check_in_id+"' id='check-in-delete-"+check_in_id+"'><i class='icon-trash''></i></a></td></tr>";
@@ -160,7 +160,7 @@
                                  $('#contacts-search').val('');
                                  
                                  init_x_editable();//re-initialize the x-editable fields after adding new content to the table
-                                 //reinitialize footable (we have to remove footable-loaded class first to make footable think the table has not been initializes)
+                                 //reinitialize footable (we have to remove footable-loaded class first to make footable think the table has not been initialized)
                                  $('#check-in-table').removeClass('footable-loaded').footable();
                              }else{
                                  alert("There was an error processing your request.\nPlease try again later.");
@@ -172,8 +172,13 @@
                  return item;//return the contact's name
              }
          });
+         /**
+          * This needs to happen after initializing the typeahead because the typeahead sets a focused value which doesn't always get set if focus is applied first.
+          * This causes the options to disappear when hovering.
+         */
+         $('#contacts-search').focus();
 
-		$('#check-in-table').on('click', '.del-line-item', function(){
+         $('#check-in-table').on('click', '.del-line-item', function(){
 			// alert($(this).attr('id'));
 			var confirm_delete=confirm("Are you sure you want to delete this record?");
 			if(!confirm_delete){
