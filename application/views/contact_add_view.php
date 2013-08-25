@@ -114,7 +114,7 @@
         $('#birthdate').combodate({
             format: "YYYY-MM-DD",
             template: "MMMM D YYYY",
-            minYear: "<?php print date('Y') - 13;?>",
+            minYear: "<?php print date('Y') - 14;?>",
             maxYear: "<?php print date('Y');?>",
             errorClass: "error"
         });
