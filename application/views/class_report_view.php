@@ -93,6 +93,7 @@
 
             	<tbody><?php
             		if(sizeof($teacher_check_ins) > 0){
+                        $teacher_cnt = 0;
             			foreach($teacher_check_ins as $teacher_check_in){
                             $teacher_check_in_time = "";
             				if($teacher_check_in['checked_in'] != "")$teacher_check_in_time = date("g:i a", strtotime($teacher_check_in['checked_in']));?>
@@ -104,6 +105,7 @@
             					</td>
                                 <td><?php print $teacher_check_in['class_name'];?></td>
                             </tr><?php
+                            $teacher_cnt++;
                         }
             		}else{?>
             		    <tr><td colspan="3" class="alert">No teacher check-ins found.</td></tr><?php
@@ -112,6 +114,16 @@
             </table>  
         </div>
     </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <p>
+                <span class="report-total-label">Visitors: </span><?php print $totals['num_visitors'];?><br />
+                <span class="report-total-label">Attendance: </span><?php print $totals['num_check_ins'] + $teacher_cnt;?><br />
+                <span class="report-total-label">Offering: </span>$<?php print $totals['offering_total'];?>
+            </p>
+        </div><!-- span12 -->
+    </div><!-- row-fluid -->
 
     <div class="row-fluid">
         <div class="span12">
