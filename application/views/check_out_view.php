@@ -18,9 +18,9 @@
     			<thead>
     			<tr>
     				<th class="check-out-name" data-class="expand">Name</th>
-    				<th class="check-out-time">Checked In</th>
-                    <th class="check-out-class" data-hide="phone">Class</th>
+    				<th class="check-out-time" data-hide="phone">Checked In</th>
                     <th class="check-out-code">Check In Code</th>
+                    <th class="check-out-class" data-hide="phone">Class</th>
     				<th class="check-out-note" data-hide="phone">Notes</th>
     				<th class="check-out-col"></th>
     			</tr>
@@ -35,15 +35,11 @@
 							<td>
 								<?print $check_in_time;?>
 								<input type="hidden" name="check_in_id_<?php print $num_check_ins;?>" value="<?print $check_in['id'];?>" id="check-in-id-<?print $check_in['id'];?>" />
-							</td>
-                                
-                            <td>
-                                <?php print $check_in['class_name'];?>
-                            </td>
+							</td>                                
 
-                            <td>
-                                <?php print $check_in['check_in_code'];?>
-                            </td>
+                            <td><?php print $check_in['check_in_code'];?></td>
+
+                            <td><?php print $check_in['class_name'];?></td>
 
 							<td>
                                 <a href="#" id="contact-note-<?php print $check_in['id'];?>" data-type="textarea" data-pk="<?php print $check_in['contact_id'];?>" class="contact-note"><?php print nl2br($check_in['notes']);?></a>
@@ -138,7 +134,7 @@
 
         init_x_editable();//initialize the dynamic x-editable fields
 
-        $('#check-out-table').footable();
+        $('#check-in-table, #check-out-table').footable();
 
 
 		$('.check-out-btn').click(function(){
