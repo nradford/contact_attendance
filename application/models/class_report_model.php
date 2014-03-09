@@ -56,11 +56,11 @@ class class_report_model extends CI_Model{
             if($this->db->_error_message() == "")$success = 1;
         }
 
-        /* generate pdf and attach it*/
+        /* generate pdf and attach it */
         $report_name = "class-report-".date('Y-m-d');
         $url = $this->config->item('report_full_url')."?class_date=".$this->input->post('class_date');
         
-        //create an html file to pass to wkhtmltopdf to create the report pdf from
+        // Create an html file to pass to wkhtmltopdf to create the report pdf from
         $curl = curl_init();
         $fp = fopen("/tmp/".$report_name.".html", "w");
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -83,7 +83,7 @@ class class_report_model extends CI_Model{
         $result = exec($command);
         unlink("/tmp/".$report_name.".html");//delete the html file
         
-        //Send email notification
+        // Send email notification
         $this->load->library('email');
         $this->email->from("no-reply@solidrockfamilychurch.org", 'Kidz Rock Check-In/Out System');
         $this->email->to("nickrradford@gmail.com"); 
